@@ -15,7 +15,7 @@ export default function Header() {
             alt="Melu Clothes Shop Logo"
             className="w-16 h-16 object-contain rounded-xl border-5 border-white"
           />
-          <p>Melu Clothes Shop</p>
+          <p className="font-cinzel text-xl text-black ">Melu Clothes Shop</p>
         </div>
       </div>
     </header>
