@@ -35,6 +35,7 @@ export default function Header() {
             headerList.map((header, index) => {
               return (
                 <Link
+                  key={index}
                   href={header.page}
                   className="cursor-pointer text-lg hover:text-xl transition-all duration-75">
                   {header.name}
