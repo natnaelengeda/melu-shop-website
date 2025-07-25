@@ -4,6 +4,9 @@ import Image from "next/image"
 // AppAsset
 import AppAsset from "@/core/AppAsset"
 import Link from "next/link"
+import { LanguageSwitcher } from "./language-switcher"
+import { Button } from "./ui/button"
+import { ShoppingBag } from "lucide-react"
 
 export default function Header() {
   const headerList = [
@@ -15,17 +18,19 @@ export default function Header() {
       {/* Main Content */}
       <div
         className="w-full h-full px-5 md:px-10 mx-auto xl:container flex flex-row items-center justify-between">
-        <div className="flex flex-row items-center justify-start gap-2">
+        <Link
+          href="/"
+          className="flex flex-row items-center justify-start gap-2 cursor-pointer">
           <Image
             src={AppAsset.Logo}
             alt="Melu Clothes Shop Logo"
             className="w-16 h-16 object-contain rounded-xl border-5 border-white"
           />
           <p className="font-cinzel text-xl text-black ">Melu Clothes Shop</p>
-        </div>
+        </Link>
 
         {/* Nav Bar */}
-        <div className="w-full h-full flex items-center justify-end gap-5">
+        <div className="w-auto h-full flex items-center justify-end gap-5">
           {
             headerList.map((header, index) => {
               return (
@@ -38,9 +43,30 @@ export default function Header() {
             })
           }
         </div>
+
+        <div className="flex flex-row items-center justify-end gap-3">
+          <div
+            className="hidden md:block ml-5">
+            <LanguageSwitcher />
+          </div>
+
+          {/* Cart */}
+          <Button
+            variant="ghost"
+            size="icon"
+            asChild
+            className="hidden md:flex relative">
+            <Link href="/cart">
+              <ShoppingBag className="h-5 w-5" />
+              <span className="absolute -top-2 -right-2 bg-primary text-primary-foreground text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                3
+              </span>
+              <span className="sr-only">Cart</span>
+            </Link>
+          </Button>
+        </div>
+
       </div>
-
-
     </header>
   )
 }
