@@ -1,6 +1,7 @@
 /* Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
 
 @import "tailwindcss";
 @import "tw-animate-css";
@@ -11,6 +12,7 @@
 @theme {
   --font-cinzel: "Cinzel", serif;
   --font-montserrat: "Montserrat", sans-serif;
+  --font-playFair: "Playfair Display", serif;
 }
 
 @theme inline {
@@ -129,5 +131,15 @@
 
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer components {
+  .centered-container {
+    @apply flex justify-center items-center min-h-screen px-4 sm:px-6 md:px-8 lg:px-16 xl:px-24;
+  }
+
+  .centered-box {
+    @apply w-full xl:container mx-auto px-4 sm:px-8 md:px-10 lg:px-12;
   }
 }
