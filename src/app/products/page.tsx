@@ -1,3 +1,4 @@
+"use client";
 import DefaultLayout from '@/layouts/default-layout'
 
 import Image from 'next/image'
@@ -10,6 +11,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 
 import { Filter, ShoppingCart } from 'lucide-react'
 import Link from 'next/link'
+import { useProducts } from '@/api/products';
 
 const marketplaceItems = [
   {
@@ -88,6 +90,7 @@ const marketplaceItems = [
 
 
 export default function page() {
+
   return (
     <DefaultLayout>
       <div

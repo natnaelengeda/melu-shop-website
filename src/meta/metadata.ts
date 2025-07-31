@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 
 export const meta: Metadata = {
-  // metadataBase: new URL('https://melu-shop.vercel.app/'),
+  metadataBase: new URL('https://melu-shop.vercel.app/'),
   icons: {
     icon: 'logo.png',
   },
