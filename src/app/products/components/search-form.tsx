@@ -1,22 +1,23 @@
 "use client";
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useForm, SubmitHandler, Controller } from "react-hook-form"
 
+// components
 import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { LoadingSpinner } from '@/components/ui/loading-spinner';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
 // api
-import axios from '@/utils/axios';
+import { useFilteredProducts } from '@/api/products';
 import { useGetCategories } from '@/api/category';
 
-import { Input } from "@/components/ui/input"
-
+// type
 import { Category } from '@/types/products';
 
 // icons
 import { Eraser, Filter } from 'lucide-react'
-import toast from 'react-hot-toast';
 
 type Inputs = {
   product: string;
@@ -25,8 +26,16 @@ type Inputs = {
   sortBy: string;
 };
 
-export default function SearchForm({ setProducts, setIsLoading }: any) {
+export default function SearchForm({ isLoading, setProducts, setIsLoading }: any) {
+  const [formData, setFormData] = useState<any>({
+    product: "",
+    category: "",
+    price: "all",
+    sortBy: "newest",
+  });
+
   const { data: categories, isPending: isCategoryPending }: { data: Category[] | undefined, isPending: boolean } = useGetCategories();
+  const { data, refetch, isFetching } = useFilteredProducts(formData);
 
   const {
     register,
@@ -44,26 +53,19 @@ export default function SearchForm({ setProducts, setIsLoading }: any) {
   });
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    setIsLoading(true);
-    axios.get(`/products/filter-products`, {
-      params: {
-        product: data.product,
-        category: data.category,
-        price: data.price,
-        sortBy: data.sortBy
-      }
-    }).then((response) => {
-      const status = response.status;
-
-      if (status == 200) {
-        setProducts(response.data);
-      }
-    }).catch((error) => {
-      toast.error("Unable to filter, Try again later");
-    }).finally(() => {
-      setIsLoading(false);
-    })
+    setFormData(data);
+    refetch();
   }
+
+  useEffect(() => {
+    if (data) {
+      setProducts(data);
+    }
+  }, [data]);
+
+  useEffect(() => {
+    setIsLoading(isFetching);
+  }, [isFetching]);
 
   return (
     <form
@@ -91,7 +93,6 @@ export default function SearchForm({ setProducts, setIsLoading }: any) {
                       color=''
                       style={{
                         color: 'white',
-
                       }} />
                   </SelectTrigger>
                   <SelectContent>
@@ -136,7 +137,6 @@ export default function SearchForm({ setProducts, setIsLoading }: any) {
                   </SelectContent>
                 </Select>
               )} />
-
             <Controller
               name="sortBy"
               control={control}
@@ -153,7 +153,6 @@ export default function SearchForm({ setProducts, setIsLoading }: any) {
                   </SelectContent>
                 </Select>
               )} />
-
           </div>
         </div>
         <div className='flex flex-row items-center justify-end gap-2'>
@@ -169,12 +168,16 @@ export default function SearchForm({ setProducts, setIsLoading }: any) {
                 Clear
               </span>
             </Button>}
-
           <Button
             type='submit'
+            disabled={isFetching}
             className='bg-primary text-black border border-gray-200 cursor-pointer'>
-            <Filter
-              className="h-4 w-4" />
+            {
+              isFetching ?
+                <LoadingSpinner /> :
+                <Filter
+                  className="h-4 w-4" />
+            }
             <span
               className="">
               Search

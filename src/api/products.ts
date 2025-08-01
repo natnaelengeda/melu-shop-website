@@ -42,3 +42,25 @@ export const useGetProductsByCategoryId = (id: number) => {
     refetchOnWindowFocus: false,
   });
 }
+
+const filterProducts = async (data: any) => {
+  const response = await axios.get(`/products/filter-products`, {
+    params: {
+      product: data.product,
+      category: data.category,
+      price: data.price,
+      sortBy: data.sortBy
+    }
+  });
+  return response.data;
+}
+
+export const useFilteredProducts = (data: any) => {
+  return useQuery({
+    queryKey: ['filtered-products'],
+    queryFn: () => filterProducts(data),
+    staleTime: 5 * 60 * 1000,
+    refetchOnWindowFocus: false,
+    enabled: true,
+  });
+}
