@@ -15,6 +15,12 @@ const nextConfig: NextConfig = {
         port: '5234',
         pathname: '/**', // Allow any path from placehold.co
       },
+      {
+        protocol: 'https',
+        hostname: 't.me',
+        port: '',
+        pathname: '/**', // Allow any path from placehold.co
+      },
     ],
   },
 };

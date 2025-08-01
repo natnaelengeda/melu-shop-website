@@ -1,22 +1,32 @@
 import React from 'react'
 import Image from 'next/image'
 import { Typography } from './ui/typography'
+import { useRouter } from 'next/navigation'
+
+import useCartStore from '@/store/cart'
 
 // Types
 import { Images } from '@/types/products'
+
+// utils
 import AppAsset from '@/core/AppAsset'
-import { useRouter } from 'next/navigation'
+import { MinusCircle, PlusCircle } from 'lucide-react'
 
 interface ProductCardProps {
   id: number;
-  name: string
-  price: string
-  image: Images[] | []
+  name: string;
+  description?: string;
+  price: string;
+  image: Images[] | [];
 }
 
-export default function ProductCard({ id, name, price, image }: ProductCardProps) {
+export default function ProductCard({ id, name, description, price, image }: ProductCardProps) {
   const imageUrl = image ? image.length !== 0 ? image[0]?.imageUrl : AppAsset.Logo : AppAsset.Logo;
   const router = useRouter();
+
+  const { addProduct, removeProduct, getById } = useCartStore();
+  const item = getById(id);
+
 
   return (
     <button
@@ -38,11 +48,48 @@ export default function ProductCard({ id, name, price, image }: ProductCardProps
             {name}
           </Typography>
         </div>
-        <div className='w-auto h bg-primary px-3 py-2 rounded-tr-xl border-t border-r border-gray-300'>
-          <Typography
-            className='relative font-playFair'>
-            {price} ETB
-          </Typography>
+        <div className='w-full h-auto flex items-end justify-between'>
+          <div className='w-auto h bg-primary px-3 py-2 rounded-tr-xl border-t border-r border-gray-300'>
+            <Typography
+              className='relative font-playFair'>
+              {price} ETB
+            </Typography>
+          </div>
+
+          <div
+            onClick={(event) => {
+              event.stopPropagation();
+              if (item) {
+                removeProduct(id);
+              } else {
+                addProduct({
+                  id: id,
+                  name: name,
+                  description: description ?? "",
+                  price: parseInt(price),
+                  imageUrl: imageUrl
+                });
+              }
+            }}
+            className='w-auto h bg-primary px-3 py-2 rounded-tl-xl border-t border-r border-gray-300'>
+            {
+              item ?
+                <span className='flex items-center justify-center gap-1'>
+                  <MinusCircle />
+                  <Typography
+                    className='relative font-playFair'>
+                    Remove
+                  </Typography>
+                </span> :
+                <span className='flex items-center justify-center gap-1'>
+                  <PlusCircle />
+                  <Typography
+                    className='relative font-playFair'>
+                    Add To Cart
+                  </Typography>
+                </span>
+            }
+          </div>
         </div>
       </div>
     </button>

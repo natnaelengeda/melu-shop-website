@@ -12,6 +12,7 @@ import AppAsset from "@/core/AppAsset"
 import { LanguageSwitcher } from "./language-switcher"
 import { Button } from "./ui/button"
 import { ShoppingBag } from "lucide-react"
+import useUserStore from "@/store/userStore";
 
 export default function Header() {
   const headerList = [
@@ -20,6 +21,7 @@ export default function Header() {
   ];
 
   const { getTotalItems } = useCartStore();
+  const { user } = useUserStore();
 
   return (
     <header className="w-full h-20 bg-[#fcefe3]">
@@ -73,8 +75,17 @@ export default function Header() {
               <span className="sr-only">Cart</span>
             </Link>
           </Button>
-        </div>
 
+          {
+            user.isLoggedIn &&
+            <Image
+              src={user.photo_url ?? AppAsset.Logo}
+              className="w-10 h-10 rounded-full object-cover"
+              width={100}
+              height={100}
+              alt={`${user.name} Profile`} />
+          }
+        </div>
       </div>
     </header>
   )

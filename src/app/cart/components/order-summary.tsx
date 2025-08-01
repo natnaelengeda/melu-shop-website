@@ -5,13 +5,17 @@ import Image from 'next/image';
 // components
 import { Input } from "@/components/ui/input"
 import { Button } from '@/components/ui/button';
+import { LoginButton } from '@telegram-auth/react';
 
 // state
 import useCartStore from '@/store/cart';
+import useUserStore from '@/store/userStore';
 
 // utils
 import AppAsset from "@/core/AppAsset"
 import { addCommas } from "@/utils/add-commas"
+import axios from "@/utils/axios";
+import toast from 'react-hot-toast';
 
 const paymentButtons = [
   {
@@ -38,12 +42,41 @@ const paymentButtons = [
 ];
 
 export default function OrderSummary() {
-  const { getTotalPrice } = useCartStore();
+  const { getTotalPrice, getAllItems } = useCartStore();
+  const { user, login } = useUserStore();
+
   const [selectedPaymentType, setSelectedpaymentType] = useState('chapa');
 
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
 
   const shipping = 0;
   const total = getTotalPrice();
+
+  const addOrder = async () => {
+    if (phone == "" && email == "") {
+      toast.error("Enter Phone or Email");
+    } else {
+      let products: { productId: number, quantity: number }[] = [];
+      const items = getAllItems();
+      items.map((item) => {
+        products.push({ productId: item.id, quantity: item.quantity });
+      })
+
+      axios.post(`/orders`, {
+        products,
+        paymentMethod: selectedPaymentType,
+        purchaseType: "online",
+        deliveryAddressId: 0,
+        isDelivery: false,
+        isPickup: true,
+        guestEmail: email,
+        guestPhone: phone
+      }).then((response) => {
+        console.log(response)
+      })
+    }
+  }
 
   return (
     <div>
@@ -67,20 +100,32 @@ export default function OrderSummary() {
 
         <div className="mt-6 space-y-4">
           <div>
-            <label htmlFor="coupon" className="block text-sm font-medium mb-1">
-              Coupon Code
+            <label htmlFor="email" className="block text-sm font-medium mb-1">
+              Email
             </label>
             <div className="flex">
               <Input
-                id="coupon"
-                placeholder="Enter coupon code"
+                id="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Enter Email"
                 className="rounded-r-none"
-                disabled={true} />
-              <Button
-                disabled
-                className="rounded-l-none text-black">
-                Apply
-              </Button>
+              />
+            </div>
+          </div>
+
+          <div>
+            <label htmlFor="phoneNumber" className="block text-sm font-medium mb-1">
+              Phone Number
+            </label>
+            <div className="flex">
+              <Input
+                id="email"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                placeholder="Enter Phone Number"
+                className="rounded-r-none"
+              />
             </div>
           </div>
 
@@ -106,14 +151,44 @@ export default function OrderSummary() {
               ))}
             </div>
           </div>
+          <button className='px-3 py-2 bg-blue'>
+            Login With Telegram
+          </button>
+          {/* {!user.isLoggedIn &&
+            <LoginButton
+              botUsername={"melu_clothes_shop_bot"}
+              onAuthCallback={(data) => {
+                axios.post(`/auth/telegram-login`, {
+                  first_name: data.first_name,
+                  hash: data.hash,
+                  id: data.id,
+                  photo_url: data.photo_url,
+                  username: data.username
+                }).then((response) => {
+                  const status = response.status;
+                  if (status == 200) {
+                    login({
+                      id: data.id,
+                      name: data.first_name,
+                      role: "user",
+                      photo_url: data.photo_url ?? "",
+                      isLoggedIn: true,
+                    });
+                    toast.success("Login Success")
+                  }
+                }).catch(() => {
+                  toast.error("Unable to login, try again later")
+                })
+              }}
+              buttonSize="large" // "large" | "medium" | "small"
+              cornerRadius={20} // 0 - 20
+              showAvatar={true} // true | false
+              lang="en"
+            />} */}
           <Button
-            className="w-full text-black"
-            asChild>
-            <Link
-              href="/checkout"
-              className="text-black">
-              Proceed to Checkout
-            </Link>
+            onClick={addOrder}
+            className="w-full text-black cursor-pointer">
+            Proceed to Checkout
           </Button>
         </div>
       </div>
