@@ -29,6 +29,20 @@ export const useProducts = () => {
   });
 }
 
+const getProductById = async (id: number) => {
+  const response = await axios.get(`/products/${id}`);
+  return response.data;
+}
+
+export const useGetProductById = (id: number) => {
+  return useQuery({
+    queryKey: [`product-${id}`],
+    queryFn: () => getProductById(id),
+    staleTime: 5 * 60 * 1000,
+    refetchOnWindowFocus: false,
+  });
+}
+
 const getProductsByCategoryId = async (id: number) => {
   const response = await axios.get(`/products/category/${id}`);
   return response.data;

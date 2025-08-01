@@ -7,12 +7,17 @@ import Link from "next/link"
 import { LanguageSwitcher } from "./language-switcher"
 import { Button } from "./ui/button"
 import { ShoppingBag } from "lucide-react"
+import useCartStore from "@/store/cart"
 
 export default function Header() {
   const headerList = [
     { name: "Categories", page: "/categories" },
     { name: "Products", page: "/products" }
-  ]
+  ];
+
+  const { getTotalItems } = useCartStore();
+
+  console.log(getTotalItems())
   return (
     <header className="w-full h-20 bg-[#fcefe3]">
       {/* Main Content */}
@@ -58,9 +63,9 @@ export default function Header() {
             asChild
             className="hidden md:flex relative">
             <Link href="/cart">
-              <ShoppingBag className="h-5 w-5" />
-              <span className="absolute -top-2 -right-2 bg-primary text-primary-foreground text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                3
+              <ShoppingBag className="h-7 w-7" />
+              <span className="bg-red-500 absolute -top-2 -right-2 text-primary-foreground text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                {getTotalItems()}
               </span>
               <span className="sr-only">Cart</span>
             </Link>

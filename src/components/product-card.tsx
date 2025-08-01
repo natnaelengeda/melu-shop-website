@@ -5,18 +5,24 @@ import { Typography } from './ui/typography'
 // Types
 import { Images } from '@/types/products'
 import AppAsset from '@/core/AppAsset'
+import { useRouter } from 'next/navigation'
 
 interface ProductCardProps {
+  id: number;
   name: string
   price: string
   image: Images[] | []
 }
 
-export default function ProductCard({ name, price, image }: ProductCardProps) {
+export default function ProductCard({ id, name, price, image }: ProductCardProps) {
   const imageUrl = image ? image.length !== 0 ? image[0]?.imageUrl : AppAsset.Logo : AppAsset.Logo;
+  const router = useRouter();
 
   return (
     <button
+      onClick={() => {
+        router.push(`/products/${id}`)
+      }}
       className="bg-gray-300 w-full h-72 relative rounded-lg overflow-hidden flex flex-col items-start justify-between gap-2 cursor-pointer">
       <Image
         className='w-full h-full absolute object-cover'
