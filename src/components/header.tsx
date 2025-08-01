@@ -1,13 +1,17 @@
+"use client";
+
 import React from "react"
 import Image from "next/image"
+import Link from "next/link"
+
+// state
+import useCartStore from "@/store/cart"
 
 // AppAsset
 import AppAsset from "@/core/AppAsset"
-import Link from "next/link"
 import { LanguageSwitcher } from "./language-switcher"
 import { Button } from "./ui/button"
 import { ShoppingBag } from "lucide-react"
-import useCartStore from "@/store/cart"
 
 export default function Header() {
   const headerList = [
@@ -17,7 +21,6 @@ export default function Header() {
 
   const { getTotalItems } = useCartStore();
 
-  console.log(getTotalItems())
   return (
     <header className="w-full h-20 bg-[#fcefe3]">
       {/* Main Content */}

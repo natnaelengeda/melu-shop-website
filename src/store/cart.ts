@@ -3,7 +3,7 @@ import { devtools } from "zustand/middleware";
 import { persist, createJSONStorage } from "zustand/middleware";
 
 interface CartType {
-  id: number | null;
+  id: number;
   name: string;
   description: string;
   price: number;
@@ -20,6 +20,7 @@ interface CartStore {
   removeQuantity: (id: number) => void;
   getItemQuantity: (id: number) => number;
   getTotalItems: () => number;
+  getAllItems: () => CartType[] | [];
   getTotalPrice: () => number;
   getById: (id: number) => boolean;
   clear: () => void;
@@ -107,6 +108,11 @@ const useCartStore = create<CartStore>()(
           } else {
             return false;
           }
+        },
+        getAllItems: () => {
+          const items = get().cart;
+
+          return items;
         }
       }),
       {
