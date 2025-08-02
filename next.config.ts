@@ -7,20 +7,26 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'placehold.co',
         port: '',
-        pathname: '/**', // Allow any path from placehold.co
+        pathname: '/**',
       },
       {
         protocol: 'http',
         hostname: 'localhost',
         port: '5234',
-        pathname: '/**', // Allow any path from placehold.co
+        pathname: '/**',
       },
       {
         protocol: 'https',
         hostname: 't.me',
         port: '',
-        pathname: '/**', // Allow any path from placehold.co
+        pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'avatars.githubusercontent.com',
+        port: '',
+        pathname: '/**',
+      }
     ],
   },
 };

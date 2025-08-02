@@ -73,7 +73,21 @@ export default function OrderSummary() {
         guestEmail: email,
         guestPhone: phone
       }).then((response) => {
-        console.log(response)
+        const status = response.status;
+        if (status == 201) {
+          const data = response.data;
+          axios.post(`/payments/initiate`, {
+            orderId: data.id,
+            provider: selectedPaymentType
+          }).then((response) => {
+            const status = response.status;
+            if (status == 201) {
+              const paymentLink = response.data.paymentLink;
+              console.log(paymentLink)
+              window.open(paymentLink);
+            }
+          })
+        }
       })
     }
   }
@@ -151,7 +165,40 @@ export default function OrderSummary() {
               ))}
             </div>
           </div>
-          <button className='px-3 py-2 bg-blue'>
+          <button
+            onClick={() => {
+              const data = {
+                first_name: "Natnael",
+                hash: "123123",
+                id: 1234312,
+                photo_url: "https://avatars.githubusercontent.com/u/43242583?v=4",
+                username: "natnaelengeda"
+              }
+
+              axios.post(`/auth/telegram-login`, {
+                first_name: data.first_name,
+                hash: data.hash,
+                id: data.id,
+                photo_url: data.photo_url,
+                username: data.username
+              }).then((response) => {
+                const status = response.status;
+                if (status == 200) {
+                  login({
+                    id: data.id,
+                    name: data.first_name,
+                    role: "user",
+                    photo_url: data.photo_url ?? "",
+                    isLoggedIn: true,
+                  });
+                  toast.success("Login Success")
+                }
+              }).catch(() => {
+                toast.error("Unable to login, try again later")
+              })
+
+            }}
+            className='px-3 py-2 bg-blue'>
             Login With Telegram
           </button>
           {/* {!user.isLoggedIn &&

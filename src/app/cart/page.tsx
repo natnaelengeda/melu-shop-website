@@ -10,28 +10,20 @@ import { Table, TableBody, TableHead, TableHeader, TableRow } from "@/components
 
 import ItemRow from "./components/item-row"
 
-
 // state
 import useCartStore from "@/store/cart"
 
 import OrderSummary from "./components/order-summary"
 
-
-
-
 export default function CartPage() {
-  const { getAllItems, clear, getTotalPrice } = useCartStore();
+  const { getAllItems, clear } = useCartStore();
 
   const cartItems = getAllItems();
-  const [selectedPaymentType, setSelectedpaymentType] = useState('chapa');
-
-
 
   return (
     <DefaultLayout>
       <div className="w-full max-w-screen-xl mx-auto py-8 px-4">
         <h1 className="text-3xl font-bold mb-8">Shopping Cart</h1>
-
         {cartItems.length === 0 ? (
           <div className="text-center py-12">
             <h2 className="text-xl font-semibold mb-4">Your cart is empty</h2>
