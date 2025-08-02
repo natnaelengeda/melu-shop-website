@@ -29,7 +29,7 @@ const paymentButtons = [
     src: AppAsset.SantimPayButtonLogo,
     type: 'santim',
     alt: 'Santim Pay Button Logo',
-    className: 'w-full h-full object-contain',
+    className: 'w-15 h-10 object-contain',
     buttonClass: 'text-black p-0 px-2',
   },
   {
@@ -83,8 +83,12 @@ export default function OrderSummary() {
             const status = response.status;
             if (status == 201) {
               const paymentLink = response.data.paymentLink;
-              console.log(paymentLink)
-              window.open(paymentLink);
+              if (paymentLink == "unavailable") {
+                toast.error("Payment Unavailable at the moment");
+              } else {
+                console.log(paymentLink)
+                window.open(paymentLink);
+              }
             }
           })
         }
@@ -184,6 +188,8 @@ export default function OrderSummary() {
               }).then((response) => {
                 const status = response.status;
                 if (status == 200) {
+                  const id = response.data.id;
+                  localStorage.setItem("id", id);
                   login({
                     id: data.id,
                     name: data.first_name,
