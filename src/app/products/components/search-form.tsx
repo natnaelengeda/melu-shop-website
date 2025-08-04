@@ -26,7 +26,7 @@ type Inputs = {
   sortBy: string;
 };
 
-export default function SearchForm({ isLoading, setProducts, setIsLoading }: any) {
+export default function SearchForm({ setProducts, setIsLoading }: any) {
   const [formData, setFormData] = useState<any>({
     product: "",
     category: "",

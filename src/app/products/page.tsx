@@ -11,7 +11,7 @@ import ProductCard, { ProductCardSkeleton } from '@/components/product-card';
 // icons
 import { Product } from '@/types/products';
 
-export default function page() {
+export default function Page() {
   const [products, setProducts] = useState<Product[] | []>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -58,7 +58,6 @@ export default function page() {
             ))
           }
         </div>
-
       </div>
     </DefaultLayout>
   )

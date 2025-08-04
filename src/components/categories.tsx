@@ -9,7 +9,6 @@ import { useGetCategories } from '@/api/category';
 
 // swiper
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination } from 'swiper/modules';
 
 // types
 import { Category } from '@/types/products';

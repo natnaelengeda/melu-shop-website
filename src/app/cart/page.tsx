@@ -1,6 +1,5 @@
 "use client"
 
-import { useState } from "react"
 import Link from "next/link"
 
 // components
@@ -14,6 +13,7 @@ import ItemRow from "./components/item-row"
 import useCartStore from "@/store/cart"
 
 import OrderSummary from "./components/order-summary"
+import AppAsset from "@/core/AppAsset"
 
 export default function CartPage() {
   const { getAllItems, clear } = useCartStore();
@@ -56,7 +56,7 @@ export default function CartPage() {
                       id={item.id}
                       name={item.name}
                       price={item.price}
-                      imageUrl={item.imageUrl} />
+                      imageUrl={item.imageUrl ?? AppAsset.Logo} />
                   ))}
                 </TableBody>
               </Table>

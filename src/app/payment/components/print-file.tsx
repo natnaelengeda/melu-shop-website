@@ -2,11 +2,10 @@
 import Image from "next/image"
 
 // components
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Order, Payment } from "../page"
 import { Progress } from "@/components/ui/progress"
 import { Separator } from "@/components/ui/separator"
-import { Order, Payment } from "../page"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
 // utils
 import { dateConvertor } from "@/utils/regularDate"

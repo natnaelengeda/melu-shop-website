@@ -9,8 +9,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
@@ -19,7 +17,7 @@ import useCartStore from "@/store/cart"
 
 // AppAsset
 import AppAsset from "@/core/AppAsset"
-import { LanguageSwitcher } from "./language-switcher"
+// import { LanguageSwitcher } from "./language-switcher"
 import { Button } from "./ui/button"
 import { MenuIcon, ShoppingBag } from "lucide-react"
 import useUserStore from "@/store/userStore";
@@ -67,10 +65,10 @@ export default function Header() {
         </div>
 
         <div className="flex flex-row items-center justify-end gap-3">
-          <div
+          {/* <div
             className="hidden md:block ml-5">
             <LanguageSwitcher />
-          </div>
+          </div> */}
 
           {/* Cart */}
           <Button
@@ -110,7 +108,8 @@ export default function Header() {
                   {
                     headerList.map((header, index) => {
                       return (
-                        <DropdownMenuItem>
+                        <DropdownMenuItem
+                          key={index}>
                           <Link
                             key={index}
                             href={header.page}
@@ -141,7 +140,8 @@ export default function Header() {
                   {
                     headerList.map((header, index) => {
                       return (
-                        <DropdownMenuItem>
+                        <DropdownMenuItem
+                          key={index}>
                           <Link
                             key={index}
                             href={header.page}

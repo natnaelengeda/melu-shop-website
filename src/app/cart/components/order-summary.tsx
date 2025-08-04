@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import Link from 'next/link';
 import Image from 'next/image';
 
 // components
@@ -57,7 +56,7 @@ export default function OrderSummary() {
     if (phone == "") {
       toast.error("Phone Number is Required");
     } else {
-      let products: { productId: number, quantity: number }[] = [];
+      const products: { productId: number, quantity: number }[] = [];
       const items = getAllItems();
       items.map((item) => {
         products.push({ productId: item.id, quantity: item.quantity });
@@ -86,7 +85,6 @@ export default function OrderSummary() {
               if (paymentLink == "unavailable") {
                 toast.error("Payment Unavailable at the moment");
               } else {
-                console.log(paymentLink)
                 window.open(paymentLink);
               }
             }
@@ -169,44 +167,46 @@ export default function OrderSummary() {
               ))}
             </div>
           </div>
-          {/* <button
-            onClick={() => {
-              const data = {
-                first_name: "Natnael",
-                hash: "123123",
-                id: 1234312,
-                photo_url: "https://avatars.githubusercontent.com/u/43242583?v=4",
-                username: "natnaelengeda"
-              }
-
-              axios.post(`/auth/telegram-login`, {
-                first_name: data.first_name,
-                hash: data.hash,
-                id: data.id,
-                photo_url: data.photo_url,
-                username: data.username
-              }).then((response) => {
-                const status = response.status;
-                if (status == 200) {
-                  const id = response.data.id;
-                  localStorage.setItem("id", id);
-                  login({
-                    id: data.id,
-                    name: data.first_name,
-                    role: "user",
-                    photo_url: data.photo_url ?? "",
-                    isLoggedIn: true,
-                  });
-                  toast.success("Login Success")
+          {process.env.NODE_ENV == "development" &&
+            <button
+              onClick={() => {
+                const data = {
+                  first_name: "Natnael",
+                  hash: "123123",
+                  id: 1234312,
+                  photo_url: "https://avatars.githubusercontent.com/u/43242583?v=4",
+                  username: "natnaelengeda"
                 }
-              }).catch(() => {
-                toast.error("Unable to login, try again later")
-              })
 
-            }}
-            className='px-3 py-2 bg-blue'>
-            Login With Telegram
-          </button> */}
+                axios.post(`/auth/telegram-login`, {
+                  first_name: data.first_name,
+                  hash: data.hash,
+                  id: data.id,
+                  photo_url: data.photo_url,
+                  username: data.username
+                }).then((response) => {
+                  const status = response.status;
+                  if (status == 200) {
+                    const id = response.data.id;
+                    localStorage.setItem("id", id);
+                    login({
+                      id: data.id,
+                      name: data.first_name,
+                      role: "user",
+                      photo_url: data.photo_url ?? "",
+                      isLoggedIn: true,
+                    });
+                    toast.success("Login Success")
+                  }
+                }).catch(() => {
+                  toast.error("Unable to login, try again later")
+                })
+
+              }}
+              className='px-3 py-2 bg-blue rounded'>
+              Login With Telegram
+            </button>}
+
           {!user.isLoggedIn &&
             <LoginButton
               botUsername={"melu_clothes_shop_bot"}

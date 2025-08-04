@@ -38,10 +38,6 @@ export default function PaymentData({ order, payment }: IPaymentData) {
 
   const paymentDate = dateConvertor(payment.paymentDate);
 
-  const handlePrint = () => {
-    window.print();
-  };
-
   return (
     <div
       className="min-h-screen">
@@ -84,7 +80,9 @@ export default function PaymentData({ order, payment }: IPaymentData) {
                     className="h-2 bg-green-600" />
                   <div className="space-y-4">
                     {orderSteps.map((step, index) => (
-                      <div key={step.id} className="flex items-center space-x-4">
+                      <div
+                        key={index}
+                        className="flex items-center space-x-4">
                         <div
                           className={`w-8 h-8 rounded-full flex items-center justify-center ${step.status === "completed"
                             ? "bg-green-100 text-green-600"
@@ -122,7 +120,7 @@ export default function PaymentData({ order, payment }: IPaymentData) {
                     <OrderItem
                       key={index}
                       name={item.product.name}
-                      image={item.product.images[0].imageUrl}
+                      image={item.product.images[0].imageUrl ?? AppAsset.Logo}
                       quantity={item.quantity}
                       priceAtPurchase={item.priceAtPurchase} />
                   ))}

@@ -22,7 +22,7 @@ interface Categories {
   products: Product[] | []
 }
 
-export default function page() {
+export default function Page() {
   const { data, isPending }: { data: Categories[] | undefined, isPending: boolean } = useGetCategoriesProducts();
 
   return (

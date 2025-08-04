@@ -58,7 +58,9 @@ export type Payment = {
   paymentDate: string
 }
 
-export default function PaymentSuccess() {
+import { Suspense } from "react";
+
+function PaymentSuccessContent() {
   const [loading, setLoading] = useState<boolean>(true);
   const [payment, setPayment] = useState<Payment | null>(null);
   const [order, setOrder] = useState<Order | null>(null);
@@ -71,7 +73,6 @@ export default function PaymentSuccess() {
   const fetchPaymentFunction = async () => {
     axios.get(`/payments/payment-order-details/${id}`)
       .then((response) => {
-        console.log(response.data);
         const status = response.status;
         if (status == 200) {
           setOrder(response.data.order[0]);
@@ -103,10 +104,17 @@ export default function PaymentSuccess() {
                   payment={payment} />
               }
             </>
-
-
         }
       </div>
     </DefaultLayout>
   )
+}
+
+export default function PaymentSuccess() {
+  return (
+    <Suspense
+      fallback={<PaymentLoadingSkeleton />}>
+      <PaymentSuccessContent />
+    </Suspense>
+  );
 }
