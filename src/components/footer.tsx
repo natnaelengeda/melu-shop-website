@@ -35,10 +35,10 @@ export default function Footer() {
     },
   ]
   return (
-    <footer className="bg-[#404040] w-full h-80 font-montserrat">
-      <div className="grid w-full h-full grid-cols-6 gap-5 px-5 pt-10 mx-auto text-white xl:container ">
+    <footer className="bg-[#404040] w-full h-full md:h-80 font-montserrat">
+      <div className="grid w-full h-full grid-cols-1 md:grid-cols-6 gap-5 px-5 pt-10 mx-auto text-white xl:container ">
         {/* First Grid */}
-        <div className="flex flex-col items-start justify-between w-full h-full col-span-3 gap-2 pb-10">
+        <div className="flex flex-col items-start justify-between w-full h-full col-span-3 gap-5 md:gap-2 pb-10 order-2 md:order-1">
           {/* Top */}
           <div className="flex flex-col gap-4">
             <div className="flex flex-col gap-3">
@@ -72,18 +72,20 @@ export default function Footer() {
         </div>
 
         {/* Second Grid */}
-        <div className="grid w-full h-full grid-cols-3 col-span-3 gap-3">
+        <div
+          className="grid w-full h-full grid-cols-2 md:grid-cols-3 col-span-3 gap-3 space-y-4 md:space-y-0 order-1 md:order-2">
           {data.map((item, index) => {
             return (
               <div
                 key={index}
-                className="flex flex-col items-start justify-start w-full h-full gap-3"
-              >
-                <h1 className="text-lg font-semibold">{item.name}</h1>
+                className="flex flex-col items-start justify-start w-full h-full gap-3">
+                <h1 className="text-lg font-bold">{item.name}</h1>
                 <ul className="flex flex-col items-start justify-start w-full gap-1">
                   {item.items.map((list, index) => {
                     return (
-                      <li key={index} className="font-light">
+                      <li
+                        key={index}
+                        className="font-light">
                         {list.name}
                       </li>
                     )

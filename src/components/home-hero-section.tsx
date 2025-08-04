@@ -7,7 +7,7 @@ import { Typography } from './ui/typography'
 export default function HomeHeroSection() {
   return (
     <div
-      className="w-full h-[30rem] relative">
+      className="w-full h-60 md:h-[30rem] relative">
       <Image
         src={AppAsset.HeroImage}
         alt="Hero Image"

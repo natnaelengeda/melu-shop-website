@@ -1,10 +1,14 @@
 import type { Metadata } from "next"
 import { meta } from "@/meta/metadata"
 
+import Provider from "./provider"
+
 // Styles
 import "./globals.css"
+import 'swiper/css';
 
-export const metadata: Metadata = meta
+export const metadata: Metadata = meta;
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -12,7 +16,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <Provider>
+          {children}
+        </Provider>
+      </body>
     </html>
   )
 }

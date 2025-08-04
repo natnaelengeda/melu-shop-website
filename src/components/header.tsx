@@ -1,18 +1,37 @@
+"use client";
+
 import React from "react"
 import Image from "next/image"
+import Link from "next/link"
+
+// components
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+
+// state
+import useCartStore from "@/store/cart"
 
 // AppAsset
 import AppAsset from "@/core/AppAsset"
-import Link from "next/link"
-import { LanguageSwitcher } from "./language-switcher"
+// import { LanguageSwitcher } from "./language-switcher"
 import { Button } from "./ui/button"
-import { ShoppingBag } from "lucide-react"
+import { MenuIcon, ShoppingBag } from "lucide-react"
+import useUserStore from "@/store/userStore";
+import { List, Package } from "lucide-react";
 
 export default function Header() {
   const headerList = [
-    { name: "Categories", page: "/categories" },
-    { name: "Products", page: "/products" }
-  ]
+    { name: "Categories", page: "/categories", icon: List },
+    { name: "Products", page: "/products", icon: Package }
+  ];
+
+  const { getTotalItems } = useCartStore();
+  const { user } = useUserStore();
+
   return (
     <header className="w-full h-20 bg-[#fcefe3]">
       {/* Main Content */}
@@ -26,11 +45,11 @@ export default function Header() {
             alt="Melu Clothes Shop Logo"
             className="w-16 h-16 object-contain rounded-xl border-5 border-white"
           />
-          <p className="font-cinzel text-xl text-black ">Melu Clothes Shop</p>
+          <p className="font-cinzel text-sm md:text-xl text-black ">Melu Clothes Shop</p>
         </Link>
 
         {/* Nav Bar */}
-        <div className="w-auto h-full flex items-center justify-end gap-5">
+        <div className="w-auto h-full hidden md:flex items-center justify-end gap-5">
           {
             headerList.map((header, index) => {
               return (
@@ -46,10 +65,10 @@ export default function Header() {
         </div>
 
         <div className="flex flex-row items-center justify-end gap-3">
-          <div
+          {/* <div
             className="hidden md:block ml-5">
             <LanguageSwitcher />
-          </div>
+          </div> */}
 
           {/* Cart */}
           <Button
@@ -58,15 +77,87 @@ export default function Header() {
             asChild
             className="hidden md:flex relative">
             <Link href="/cart">
-              <ShoppingBag className="h-5 w-5" />
-              <span className="absolute -top-2 -right-2 bg-primary text-primary-foreground text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                3
+              <ShoppingBag className="h-7 w-7" />
+              <span className="bg-red-500 absolute -top-2 -right-2 text-primary-foreground text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                {getTotalItems()}
               </span>
               <span className="sr-only">Cart</span>
             </Link>
           </Button>
-        </div>
 
+          {
+            user.isLoggedIn ?
+              <DropdownMenu>
+                <DropdownMenuTrigger>
+                  <Image
+                    src={user.photo_url ?? AppAsset.Logo}
+                    className="w-10 h-10 rounded-full object-cover"
+                    width={100}
+                    height={100}
+                    alt={`${user.name} Profile`} />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  <DropdownMenuItem>
+                    <Link
+                      className="flex flex-row items-center justify-around gap-2"
+                      href="/cart">
+                      <ShoppingBag className="h-7 w-7" />
+                      <span className="">Cart</span>
+                    </Link>
+                  </DropdownMenuItem>
+                  {
+                    headerList.map((header, index) => {
+                      return (
+                        <DropdownMenuItem
+                          key={index}>
+                          <Link
+                            key={index}
+                            href={header.page}
+                            className="flex flex-row items-center gap-2 cursor-pointer hover:text-xl transition-all duration-75"
+                          >
+                            <header.icon className="h-5 w-5" />
+                            {header.name}
+                          </Link>
+                        </DropdownMenuItem>
+                      )
+                    })
+                  }
+                </DropdownMenuContent>
+              </DropdownMenu> :
+              <DropdownMenu>
+                <DropdownMenuTrigger>
+                  <MenuIcon />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  <DropdownMenuItem>
+                    <Link
+                      className="flex flex-row items-center justify-around gap-2"
+                      href="/cart">
+                      <ShoppingBag className="h-7 w-7" />
+                      <span className="">Cart</span>
+                    </Link>
+                  </DropdownMenuItem>
+                  {
+                    headerList.map((header, index) => {
+                      return (
+                        <DropdownMenuItem
+                          key={index}>
+                          <Link
+                            key={index}
+                            href={header.page}
+                            className="flex flex-row items-center gap-2 cursor-pointer hover:text-xl transition-all duration-75"
+                          >
+                            <header.icon className="h-5 w-5" />
+                            {header.name}
+                          </Link>
+                        </DropdownMenuItem>
+                      )
+                    })
+                  }
+                </DropdownMenuContent>
+              </DropdownMenu>
+          }
+        </div>
       </div>
     </header>
   )

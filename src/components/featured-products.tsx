@@ -1,49 +1,19 @@
+"use client";
+
 import React from 'react'
 
 import { Typography } from './ui/typography'
-import ProductCard from './product-card'
+import ProductCard, { ProductCardSkeleton } from './product-card'
 
-import AppAsset from "@/core/AppAsset"
+// api
+import { useFeaturedproducts } from '@/api/products';
+
+// types
+import { Product } from '@/types/products';
 
 export default function Featuredproducts() {
-  const products = [
-    {
-      id: 1,
-      name: "Product 1",
-      price: 29.99,
-      image: AppAsset.Placeholder,
-    },
-    {
-      id: 2,
-      name: "Product 2",
-      price: 39.99,
-      image: AppAsset.Placeholder,
-    },
-    {
-      id: 3,
-      name: "Product 3",
-      price: 49.99,
-      image: AppAsset.Placeholder,
-    },
-    {
-      id: 4,
-      name: "Product 4",
-      price: 19.99,
-      image: AppAsset.Placeholder,
-    },
-    {
-      id: 5,
-      name: "Product 4",
-      price: 19.99,
-      image: AppAsset.Placeholder,
-    },
-    {
-      id: 6,
-      name: "Product 4",
-      price: 19.99,
-      image: AppAsset.Placeholder,
-    },
-  ];
+
+  const { data, isPending }: { data: Product[] | undefined, isPending: boolean } = useFeaturedproducts();
 
   return (
     <div
@@ -55,15 +25,26 @@ export default function Featuredproducts() {
         Featured Products
       </Typography>
 
-      <div className="w-full grid grid-cols-3 gap-5">
-        {products.map((product) => (
-          <ProductCard
-            key={product.id}
-            name={product.name}
-            price={product.price}
-            image={product.image}
-          />
-        ))}
+      <div className="w-full grid grid-cols-2 lg:grid-cols-3 gap-5">
+        {
+          !isPending &&
+          data &&
+          data.length !== 0 &&
+          data.map((product, index: number) => (
+            <ProductCard
+              key={index}
+              id={product.id}
+              name={product.name}
+              price={product.price}
+              image={product.images}
+            />
+          ))}
+        {
+          isPending &&
+          Array.from({ length: 3 }).map((_, idx) => (
+            <ProductCardSkeleton key={idx} />
+          ))
+        }
       </div>
     </div>
   )

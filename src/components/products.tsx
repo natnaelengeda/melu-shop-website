@@ -1,50 +1,21 @@
+"use client";
 import React from 'react'
+import { useRouter } from 'next/navigation';
 
 import { Typography } from './ui/typography'
-import ProductCard from './product-card'
+import { Product } from '@/types/products';
+import ProductCard, { ProductCardSkeleton } from './product-card'
 
-import AppAsset from "@/core/AppAsset"
+// api
+import { useProducts } from '@/api/products';
+
+// icons
 import { ArrowRight } from 'lucide-react';
 
+
 export default function Products() {
-  const products = [
-    {
-      id: 1,
-      name: "Product 1",
-      price: 29.99,
-      image: AppAsset.Placeholder,
-    },
-    {
-      id: 2,
-      name: "Product 2",
-      price: 39.99,
-      image: AppAsset.Placeholder,
-    },
-    {
-      id: 3,
-      name: "Product 3",
-      price: 49.99,
-      image: AppAsset.Placeholder,
-    },
-    {
-      id: 4,
-      name: "Product 4",
-      price: 19.99,
-      image: AppAsset.Placeholder,
-    },
-    {
-      id: 5,
-      name: "Product 4",
-      price: 19.99,
-      image: AppAsset.Placeholder,
-    },
-    {
-      id: 6,
-      name: "Product 4",
-      price: 19.99,
-      image: AppAsset.Placeholder,
-    },
-  ];
+  const { data, isPending }: { data: Product[] | undefined, isPending: boolean } = useProducts();
+  const router = useRouter();
 
   return (
     <div
@@ -56,19 +27,34 @@ export default function Products() {
         Products
       </Typography>
 
-      <div className="w-full grid grid-cols-3 gap-5">
-        {products.map((product) => (
-          <ProductCard
-            key={product.id}
-            name={product.name}
-            price={product.price}
-            image={product.image}
-          />
-        ))}
+      <div className="w-full grid grid-cols-2 md:grid-cols-3 gap-5">
+        {
+          !isPending &&
+          data &&
+          data.length !== 0 &&
+          data.map((product, index: number) => (
+            <ProductCard
+              key={index}
+              id={product.id}
+              name={product.name}
+              price={product.price}
+              image={product.images}
+            />
+          ))}
+
+        {
+          isPending &&
+          Array.from({ length: 3 }).map((_, idx) => (
+            <ProductCardSkeleton key={idx} />
+          ))
+        }
       </div>
 
       <div className='w-full flex items-center justify-end'>
         <button
+          onClick={() => [
+            router.push(`/products`)
+          ]}
           className='flex items-center justify-center gap-2 px-4 py-2 bg-primary text-center text-black text-lg rounded-lg border border-gray-200'>
           See More
           <ArrowRight />
