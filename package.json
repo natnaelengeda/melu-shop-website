@@ -30,6 +30,7 @@
     "react-i18next": "^15.6.1",
     "react-telegram-login": "^1.1.2",
     "react-to-print": "^3.1.1",
+    "swiper": "^11.2.10",
     "tailwind-merge": "^3.3.1",
     "zustand": "^5.0.7"
   },

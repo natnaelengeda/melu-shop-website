@@ -5,6 +5,7 @@ import Provider from "./provider"
 
 // Styles
 import "./globals.css"
+import 'swiper/css';
 
 export const metadata: Metadata = meta;
 

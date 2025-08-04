@@ -1,18 +1,21 @@
 "use client";
 import React from 'react'
+import { useRouter } from 'next/navigation';
 
 import { Typography } from './ui/typography'
+import { Product } from '@/types/products';
 import ProductCard, { ProductCardSkeleton } from './product-card'
 
-import { Product } from '@/types/products';
-
-import { ArrowRight } from 'lucide-react';
+// api
 import { useProducts } from '@/api/products';
+
+// icons
+import { ArrowRight } from 'lucide-react';
 
 
 export default function Products() {
   const { data, isPending }: { data: Product[] | undefined, isPending: boolean } = useProducts();
-
+  const router = useRouter();
 
   return (
     <div
@@ -24,7 +27,7 @@ export default function Products() {
         Products
       </Typography>
 
-      <div className="w-full grid grid-cols-3 gap-5">
+      <div className="w-full grid grid-cols-2 md:grid-cols-3 gap-5">
         {
           !isPending &&
           data &&
@@ -49,6 +52,9 @@ export default function Products() {
 
       <div className='w-full flex items-center justify-end'>
         <button
+          onClick={() => [
+            router.push(`/products`)
+          ]}
           className='flex items-center justify-center gap-2 px-4 py-2 bg-primary text-center text-black text-lg rounded-lg border border-gray-200'>
           See More
           <ArrowRight />

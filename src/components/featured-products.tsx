@@ -25,7 +25,7 @@ export default function Featuredproducts() {
         Featured Products
       </Typography>
 
-      <div className="w-full grid grid-cols-3 gap-5">
+      <div className="w-full grid grid-cols-2 lg:grid-cols-3 gap-5">
         {
           !isPending &&
           data &&

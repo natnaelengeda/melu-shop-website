@@ -33,7 +33,7 @@ export default function ProductCard({ id, name, description, price, image }: Pro
       onClick={() => {
         router.push(`/products/${id}`)
       }}
-      className="bg-gray-300 w-full h-72 relative rounded-lg overflow-hidden flex flex-col items-start justify-between gap-2 cursor-pointer">
+      className="bg-gray-300 w-full h-60 md:h-72 relative rounded-lg overflow-hidden flex flex-col items-start justify-between gap-2 cursor-pointer">
       <Image
         className='w-full h-full absolute object-cover'
         src={imageUrl}
@@ -77,14 +77,14 @@ export default function ProductCard({ id, name, description, price, image }: Pro
                 <span className='flex items-center justify-center gap-1'>
                   <MinusCircle size={20} />
                   <Typography
-                    className='relative font-playFair text-sm'>
+                    className='hidden md:flex relative font-playFair text-sm'>
                     Remove
                   </Typography>
                 </span> :
                 <span className='flex items-center justify-center gap-1'>
                   <PlusCircle size={20} />
                   <Typography
-                    className='relative font-playFair text-sm'>
+                    className='hidden md:flex relative font-playFair text-sm'>
                     Add To Cart
                   </Typography>
                 </span>
