@@ -36,7 +36,7 @@ export default function page() {
           setIsLoading={setIsLoading} />
 
         {/* Items Grid */}
-        <div className="w-full grid grid-cols-3 gap-5">
+        <div className="w-full grid grid-cols-2 md:grid-cols-3 gap-5">
           {
             !isLoading &&
             products &&

@@ -49,7 +49,7 @@ export default function Page({ params }: Props) {
             </div>
         }
         {/* Products */}
-        <div className="w-full grid grid-cols-3 gap-5 pt-10">
+        <div className="w-full grid grid-cols-2 md:grid-cols-3 gap-5 pt-10">
           {
             !isProductsPending &&
             products &&

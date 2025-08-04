@@ -91,7 +91,7 @@ export default function PaymentSuccess() {
   return (
     <DefaultLayout>
       <div
-        className='pt-5'>
+        className='pt-5 overflow-hidden'>
         {
           (loading) ?
             <PaymentLoadingSkeleton /> :

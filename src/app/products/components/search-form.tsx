@@ -72,8 +72,9 @@ export default function SearchForm({ isLoading, setProducts, setIsLoading }: any
       className="bg-muted p-4 rounded-lg mb-8 mt-10"
       onSubmit={handleSubmit(onSubmit)}>
       <div
-        className="w-full flex flex-col md:flex-row gap-4">
-        <div className='w-full flex flex-row items-center justify-between gap-5'>
+        className="w-full flex flex-col md:flex-row gap-4 overflow-hidden">
+        <div
+          className='w-full flex flex-col  md:flex-row items-center justify-between gap-5'>
           <div className="w-full flex-1">
             <Input
               className='bg-white w-full'
