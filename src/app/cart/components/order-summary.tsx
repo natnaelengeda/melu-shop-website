@@ -54,8 +54,8 @@ export default function OrderSummary() {
   const total = getTotalPrice();
 
   const addOrder = async () => {
-    if (phone == "" && email == "") {
-      toast.error("Enter Phone or Email");
+    if (phone == "") {
+      toast.error("Phone Number is Required");
     } else {
       let products: { productId: number, quantity: number }[] = [];
       const items = getAllItems();

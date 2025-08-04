@@ -1,59 +1,61 @@
 "use client"
-import { useRef } from "react"
 import Image from "next/image"
 
 // components
 import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
 import { Separator } from "@/components/ui/separator"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { CheckCircle, Package, CreditCard, User, Mail, Phone } from "lucide-react"
-
-import OrderItem from "./order-item"
 import { Order, Payment } from "../page"
 
 // utils
 import { dateConvertor } from "@/utils/regularDate"
+import OrderItem from "./order-item"
 import { addCommas } from "@/utils/add-commas"
-import { useReactToPrint } from "react-to-print";
+import { orderSteps } from "./payment-data"
 
 // app asset
 import AppAsset from "@/core/AppAsset"
-import PrintFile from "./print-file"
-import Link from "next/link"
+
+// Icons
+import { CheckCircle, Package, CreditCard, User, Mail, Phone } from "lucide-react"
 
 interface IPaymentData {
   order: Order;
   payment: Payment;
+  contentRef: any
 }
 
-export const orderSteps = [
-  { id: 1, name: "Order Confirmed", status: "completed", date: "Jan 15, 2024" },
-  { id: 2, name: "Payment Processed", status: "completed", date: "Jan 15, 2024" },
-]
-
-export default function PaymentData({ order, payment }: IPaymentData) {
-  const contentRef = useRef<HTMLDivElement>(null);
-  const reactToPrintFn = useReactToPrint({ contentRef });
-
+export default function PrintFile({ order, payment, contentRef }: IPaymentData) {
   const paymentDate = dateConvertor(payment.paymentDate);
-
-  const handlePrint = () => {
-    window.print();
-  };
 
   return (
     <div
-      className="min-h-screen bg-gray-50">
+      ref={contentRef}
+      className="w-[30rem] mx-auto flex flex-col items-start justify-start gap-5">
 
+      <div className="w-full h-20 bg-[#fcefe3]">
+        {/* Main Content */}
+        <div
+          className="h-full px-5 md:px-10 mx-auto flex flex-row items-center justify-between">
+          <div
+            className="flex flex-row items-center justify-start gap-2 cursor-pointer">
+            <Image
+              src={AppAsset.Logo}
+              alt="Melu Clothes Shop Logo"
+              className="w-16 h-16 object-contain rounded-xl border-5 border-white"
+            />
+            <p className="font-cinzel text-xl text-black ">Melu Clothes Shop</p>
+          </div>
+
+        </div>
+      </div>
       {/* Order ID */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <p className="text-sm text-gray-600">Order ID: {order.id}</p>
       </div>
-
-      {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
-        <div className="grid lg:grid-cols-3 gap-8">
+        <div className="grid lg:grid-cols-1 gap-8">
           {/* Left Column - Order Status */}
           <div className="lg:col-span-2 space-y-6">
             {/* Success Message */}
@@ -84,7 +86,9 @@ export default function PaymentData({ order, payment }: IPaymentData) {
                     className="h-2 bg-green-600" />
                   <div className="space-y-4">
                     {orderSteps.map((step, index) => (
-                      <div key={step.id} className="flex items-center space-x-4">
+                      <div
+                        key={index}
+                        className="flex items-center space-x-4">
                         <div
                           className={`w-8 h-8 rounded-full flex items-center justify-center ${step.status === "completed"
                             ? "bg-green-100 text-green-600"
@@ -152,9 +156,9 @@ export default function PaymentData({ order, payment }: IPaymentData) {
           </div>
 
           {/* Right Column - Order Details */}
-          <div className="space-y-6">
+          <div className="w-full space-y-6">
             {/* Payment Information */}
-            <Card>
+            <Card className="w-full">
               <CardHeader>
                 <CardTitle className="flex items-center space-x-2">
                   <CreditCard className="h-5 w-5" />
@@ -193,37 +197,9 @@ export default function PaymentData({ order, payment }: IPaymentData) {
                 </div>
               </CardContent>
             </Card>
-
-            {/* Action Buttons */}
-            <div className="space-y-3">
-              <Button
-                onClick={reactToPrintFn}
-                className="w-full bg-transparent cursor-pointer"
-                variant="outline">
-                Download Invoice
-              </Button>
-              <Button
-                className="w-full text-black cursor-pointer">
-                <Link
-                  href={'/products'}>
-                  Continue Shopping
-                </Link>
-              </Button>
-            </div>
           </div>
         </div>
       </main>
-
-      {
-        <div style={{
-          display: "none"
-        }}>
-          <PrintFile
-            contentRef={contentRef}
-            order={order}
-            payment={payment} />
-        </div>
-      }
     </div>
   )
 }

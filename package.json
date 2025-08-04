@@ -29,6 +29,7 @@
     "react-hot-toast": "^2.5.2",
     "react-i18next": "^15.6.1",
     "react-telegram-login": "^1.1.2",
+    "react-to-print": "^3.1.1",
     "tailwind-merge": "^3.3.1",
     "zustand": "^5.0.7"
   },

@@ -10,6 +10,24 @@ import DefaultLayout from '@/layouts/default-layout';
 import axios from "@/utils/axios";
 import PaymentLoadingSkeleton from './components/payment-loading-skeleton';
 import PaymentData from './components/payment-data';
+import useCartStore from '@/store/cart';
+
+export type Product = {
+  id: number;
+  name: string;
+  description: string;
+  price: string;
+  discountPrice: string;
+  isDiscounted: boolean;
+  isFeatured: boolean;
+  stock: number;
+  createdAt: string;
+  images: {
+    id: number,
+    imageUrl: string,
+    isPrimary: boolean,
+  }[]
+};
 
 export type Order = {
   id: number
@@ -26,6 +44,7 @@ export type Order = {
     id: number
     quantity: number
     priceAtPurchase: string
+    product: Product
   }[]
   createdAt: string
 }
@@ -47,6 +66,8 @@ export default function PaymentSuccess() {
   const searchParams = useSearchParams();
   const id = searchParams.get('id');
 
+  const { clear } = useCartStore();
+
   const fetchPaymentFunction = async () => {
     axios.get(`/payments/payment-order-details/${id}`)
       .then((response) => {
@@ -56,6 +77,7 @@ export default function PaymentSuccess() {
           setOrder(response.data.order[0]);
           setPayment(response.data.payment);
           setLoading(false);
+          clear();
         }
       })
   }
