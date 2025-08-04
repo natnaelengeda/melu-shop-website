@@ -169,7 +169,7 @@ export default function OrderSummary() {
               ))}
             </div>
           </div>
-          <button
+          {/* <button
             onClick={() => {
               const data = {
                 first_name: "Natnael",
@@ -206,8 +206,8 @@ export default function OrderSummary() {
             }}
             className='px-3 py-2 bg-blue'>
             Login With Telegram
-          </button>
-          {/* {!user.isLoggedIn &&
+          </button> */}
+          {!user.isLoggedIn &&
             <LoginButton
               botUsername={"melu_clothes_shop_bot"}
               onAuthCallback={(data) => {
@@ -237,7 +237,7 @@ export default function OrderSummary() {
               cornerRadius={20} // 0 - 20
               showAvatar={true} // true | false
               lang="en"
-            />} */}
+            />}
           <Button
             onClick={addOrder}
             className="w-full text-black cursor-pointer">
