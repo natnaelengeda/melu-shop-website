@@ -75,16 +75,16 @@ export default function ProductCard({ id, name, description, price, image }: Pro
             {
               item ?
                 <span className='flex items-center justify-center gap-1'>
-                  <MinusCircle />
+                  <MinusCircle size={20} />
                   <Typography
-                    className='relative font-playFair'>
+                    className='relative font-playFair text-sm'>
                     Remove
                   </Typography>
                 </span> :
                 <span className='flex items-center justify-center gap-1'>
-                  <PlusCircle />
+                  <PlusCircle size={20} />
                   <Typography
-                    className='relative font-playFair'>
+                    className='relative font-playFair text-sm'>
                     Add To Cart
                   </Typography>
                 </span>

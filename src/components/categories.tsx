@@ -2,13 +2,14 @@
 
 import React from 'react'
 import Image from "next/image"
+import { useRouter } from 'next/navigation';
 
-import AppAsset from "@/core/AppAsset"
 import { Typography } from './ui/typography'
 import { useGetCategories } from '@/api/category';
 import { Category } from '@/types/products';
 
 export default function Categories() {
+  const router = useRouter();
   const { data, isPending }: { data: Category[] | undefined, isPending: boolean } = useGetCategories();
 
   return (
@@ -28,16 +29,20 @@ export default function Categories() {
           data.map((category, index) => (
             <div
               key={index}
-              className="w-66 h-40 relative flex flex-col items-center justify-center gap-2 rounded-lg overflow-hidden border border-gray-300">
+              onClick={() => {
+                router.push(`/categories/${category.id}`)
+              }}
+              className="w-66 h-40 relative flex flex-col items-center justify-center gap-2 rounded-lg overflow-hidden border border-gray-300 cursor-pointer box-transition ">
               <Image
                 className='w-full h-full absolute object-cover'
                 src={category.imageUrl}
                 alt={category.name}
                 width={300}
                 height={300} />
-              <div className='bg-primary rounded-2xl px-2 py-2  relative'>
+              <div
+                className='bg-primary rounded-sm px-2 py-2  relative'>
                 <Typography
-                  variant='h3'
+                  variant='p'
                   className='relative'>
                   {category.name}
                 </Typography>
