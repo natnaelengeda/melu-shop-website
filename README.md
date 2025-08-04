@@ -1,8 +1,44 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+
+# Melu Clothes Shop Website
+
+An e-commerce web application for Melu Clothes Shop, built with Next.js, React, and TypeScript. The platform allows users to browse, search, and purchase a variety of clothing products with a modern, responsive UI.
+
+## Features
+
+- Product catalog with categories and featured products
+- Product details with image gallery and description
+- Shopping cart and checkout flow
+- Category browsing and filtering
+- Responsive design for mobile and desktop
+- Loading skeletons for smooth UX
+- Wishlist functionality
+- Payment integration (planned)
+
+## Tech Stack
+
+- [Next.js](https://nextjs.org/) (App Router)
+- [React](https://react.dev/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Lucide Icons](https://lucide.dev/)
+- [Axios](https://axios-http.com/)
 
 ## Getting Started
 
-First, run the development server:
+## Getting Started
+
+
+Install dependencies:
+
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
+```
+
+Run the development server:
 
 ```bash
 npm run dev
@@ -14,23 +50,28 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Open [http://localhost:3000](http://localhost:3000) in your browser to view the app.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Learn More
+## Project Structure
 
-To learn more about Next.js, take a look at the following resources:
+- `src/app/` - Application routes and pages
+- `src/components/` - Reusable UI components
+- `src/core/` - Core utilities and assets
+- `src/styles/` - Global styles
+- `src/utils/` - Helper functions (e.g., Axios instance)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## API
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+The app expects a backend API for products, categories, and orders. Update API endpoints in `src/utils/axios.ts` as needed.
 
-## Deploy on Vercel
+## Contributing
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Pull requests are welcome! For major changes, please open an issue first to discuss what you would like to change.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## License
+
+MIT
+
+
