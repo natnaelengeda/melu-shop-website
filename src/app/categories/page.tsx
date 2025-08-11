@@ -65,7 +65,7 @@ export default function Page() {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   {category.products.map((product) => (
                     <div key={product.id} className="border rounded-lg overflow-hidden group">
-                      <Link href={`/product/${product.id}`}>
+                      <Link href={`/products/${product.id}`}>
                         <div className="aspect-square relative">
                           <Image
                             src={product.images?.[0]?.imageUrl ?? AppAsset.Logo}
