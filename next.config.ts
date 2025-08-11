@@ -26,6 +26,12 @@ const nextConfig: NextConfig = {
         hostname: 'avatars.githubusercontent.com',
         port: '',
         pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'melu-api.alamondaii.com',
+        port: '',
+        pathname: '/**',
       }
     ],
   },
