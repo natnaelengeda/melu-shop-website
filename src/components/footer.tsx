@@ -35,7 +35,8 @@ export default function Footer() {
     },
   ]
   return (
-    <footer className="bg-[#404040] w-full h-full md:h-80 font-montserrat">
+    <footer
+      className="bg-[#404040] w-full h-full md:h-80 font-montserrat">
       <div className="grid w-full h-full grid-cols-1 md:grid-cols-6 gap-5 px-5 pt-10 mx-auto text-white xl:container ">
         {/* First Grid */}
         <div className="flex flex-col items-start justify-between w-full h-full col-span-3 gap-5 md:gap-2 pb-10 order-2 md:order-1">
@@ -45,9 +46,9 @@ export default function Footer() {
               <h1 className="font-bold">
                 Join Us, Get Email About New Producs when They Arrive
               </h1>
-              <Input className="w-96" placeholder="Enter Your Email Address" />
+              <Input className="w-full md:w-96" placeholder="Enter Your Email Address" />
             </div>
-            <div className="flex flex-row items-start justify-start gap-2 w-96">
+            <div className="flex flex-row items-start justify-start gap-2 w-full md:w-96">
               <Checkbox className="mt-1" />
               <p className="text-xs">
                 By Submitting your email, you agree to receive advertising

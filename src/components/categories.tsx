@@ -74,8 +74,8 @@ export default function Categories() {
         <Swiper
           spaceBetween={10}
           slidesPerView={2.8}
-          onSlideChange={() => console.log('slide change')}
-          onSwiper={(swiper: any) => console.log(swiper)}
+          // onSlideChange={() => console.log('slide change')}
+          // onSwiper={(swiper: any) => console.log(swiper)}
           className=''>
           {
             !isPending &&
