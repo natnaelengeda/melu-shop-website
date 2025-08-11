@@ -167,79 +167,91 @@ export default function OrderSummary() {
               ))}
             </div>
           </div>
-          {process.env.NODE_ENV == "development" &&
-            <button
-              onClick={() => {
-                const data = {
-                  first_name: "Natnael",
-                  hash: "123123",
-                  id: 1234312,
-                  photo_url: "https://avatars.githubusercontent.com/u/43242583?v=4",
-                  username: "natnaelengeda"
-                }
-
-                axios.post(`/auth/telegram-login`, {
-                  first_name: data.first_name,
-                  hash: data.hash,
-                  id: data.id,
-                  photo_url: data.photo_url,
-                  username: data.username
-                }).then((response) => {
-                  const status = response.status;
-                  if (status == 200) {
-                    const id = response.data.id;
-                    localStorage.setItem("id", id);
-                    login({
-                      id: data.id,
-                      name: data.first_name,
-                      role: "user",
-                      photo_url: data.photo_url ?? "",
-                      isLoggedIn: true,
-                    });
-                    toast.success("Login Success")
+          {
+            process.env.NODE_ENV == "development" ?
+              !user.isLoggedIn &&
+              <button
+                onClick={() => {
+                  const data = {
+                    first_name: "Natnael",
+                    hash: "123123",
+                    id: 1234312,
+                    photo_url: "https://avatars.githubusercontent.com/u/43242583?v=4",
+                    username: "natnaelengeda"
                   }
-                }).catch(() => {
-                  toast.error("Unable to login, try again later")
-                })
 
-              }}
-              className='px-3 py-2 bg-blue rounded'>
-              Login With Telegram
-            </button>}
+                  axios.post(`/auth/telegram-login`, {
+                    first_name: data.first_name,
+                    hash: data.hash,
+                    id: data.id,
+                    photo_url: data.photo_url,
+                    username: data.username
+                  }).then((response) => {
+                    const status = response.status;
+                    if (status == 200) {
+                      const id = response.data.id;
+                      localStorage.setItem("id", id);
+                      login({
+                        id: data.id,
+                        name: data.first_name,
+                        role: "user",
+                        photo_url: data.photo_url ?? "",
+                        isLoggedIn: true,
+                      });
+                      toast.success("Login Success")
+                    }
+                  }).catch(() => {
+                    toast.error("Unable to login, try again later")
+                  })
 
-          {!user.isLoggedIn &&
-            <LoginButton
-              botUsername={"melu_clothes_shop_bot"}
-              onAuthCallback={(data) => {
-                axios.post(`/auth/telegram-login`, {
-                  first_name: data.first_name,
-                  hash: data.hash,
-                  id: data.id,
-                  photo_url: data.photo_url,
-                  username: data.username
-                }).then((response) => {
-                  const status = response.status;
-                  if (status == 200) {
-                    login({
-                      id: data.id,
-                      name: data.first_name,
-                      role: "user",
-                      photo_url: data.photo_url ?? "",
-                      isLoggedIn: true,
-                    });
-                    toast.success("Login Success")
-                  }
-                }).catch(() => {
-                  toast.error("Unable to login, try again later")
-                })
-              }}
-              buttonSize="large" // "large" | "medium" | "small"
-              cornerRadius={20} // 0 - 20
-              showAvatar={true} // true | false
-              lang="en"
-            />}
+                }}
+                className='px-3 py-2 bg-blue rounded'>
+                Login With Telegram
+              </button> :
+              <>
+                {!user.isLoggedIn &&
+                  <LoginButton
+                    botUsername={"melu_clothes_shop_bot"}
+                    onAuthCallback={(data) => {
+                      axios.post(`/auth/telegram-login`, {
+                        first_name: data.first_name,
+                        hash: data.hash,
+                        id: data.id,
+                        photo_url: data.photo_url,
+                        username: data.username
+                      }).then((response) => {
+                        const status = response.status;
+                        if (status == 200) {
+                          login({
+                            id: data.id,
+                            name: data.first_name,
+                            role: "user",
+                            photo_url: data.photo_url ?? "",
+                            isLoggedIn: true,
+                          });
+                          toast.success("Login Success")
+                        }
+                      }).catch(() => {
+                        toast.error("Unable to login, try again later")
+                      })
+                    }}
+                    buttonSize="large" // "large" | "medium" | "small"
+                    cornerRadius={20} // 0 - 20
+                    showAvatar={true} // true | false
+                    lang="en"
+                  />}
+              </>
+          }
+
+
           <Button
-            onClick={addOrder}
+            onClick={() => {
+              if (user.isLoggedIn == false) {
+                toast("Login with Telegram First");
+              } else {
+                addOrder();
+              }
+            }}
             className="w-full text-black cursor-pointer">
             Proceed to Checkout
           </Button>
