@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">melu-shop-app</string>
+    <string name="title_activity_main">melu-shop-app</string>
+    <string name="package_name">com.melu_shop.app</string>
+    <string name="custom_url_scheme">com.melu_shop.app</string>
+</resources>
