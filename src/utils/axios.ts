@@ -32,7 +32,7 @@ instance.interceptors.response.use(null, async (error) => {
         }
       });
       return axios(error.config);
-    } catch (error) {
+    } catch (_) {
       // console.log("Error", error);
       // console.log("Refresh Token Error");
       // window.location.href = "/auth/login";
