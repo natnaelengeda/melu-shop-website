@@ -15,6 +15,8 @@ import AppAsset from "@/core/AppAsset"
 import { addCommas } from "@/utils/add-commas"
 import axios from "@/utils/axios";
 import toast from 'react-hot-toast';
+import { error } from 'console';
+import { LoadingSpinner } from '@/components/ui/loading-spinner';
 
 const paymentButtons = [
   {
@@ -45,6 +47,7 @@ export default function OrderSummary() {
   const { user, login } = useUserStore();
 
   const [selectedPaymentType, setSelectedpaymentType] = useState('chapa');
+  const [isOrderloading, setIsOrderLoading] = useState(false);
 
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
@@ -56,6 +59,7 @@ export default function OrderSummary() {
     if (phone == "") {
       toast.error("Phone Number is Required");
     } else {
+      setIsOrderLoading(true);
       const products: { productId: number, quantity: number }[] = [];
       const items = getAllItems();
       items.map((item) => {
@@ -88,6 +92,10 @@ export default function OrderSummary() {
                 window.open(paymentLink);
               }
             }
+          }).catch(() => {
+            toast.error("Unable to send Payment Link");
+          }).finally(() => {
+            setIsOrderLoading(false);
           })
         }
       })
@@ -171,6 +179,7 @@ export default function OrderSummary() {
             process.env.NODE_ENV == "development" ?
               !user.isLoggedIn &&
               <button
+                className='px-3 py-2 bg-blue-500 text-white my-3 rounded'
                 onClick={() => {
                   const data = {
                     first_name: "Natnael",
@@ -205,7 +214,7 @@ export default function OrderSummary() {
                   })
 
                 }}
-                className='px-3 py-2 bg-blue rounded'>
+              >
                 Login With Telegram
               </button> :
               <>
@@ -252,7 +261,13 @@ export default function OrderSummary() {
                 addOrder();
               }
             }}
-            className="w-full text-black cursor-pointer">
+            className="w-full text-black cursor-pointer"
+            disabled={isOrderloading}>
+            {
+              isOrderloading &&
+              <LoadingSpinner size={20} />
+            }
+
             Proceed to Checkout
           </Button>
         </div>
