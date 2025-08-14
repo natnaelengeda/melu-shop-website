@@ -1,5 +1,5 @@
 import Logo from "@/assets/imgs/logo-high-quality.png"
-import HeroImage from "@/assets/imgs/hero.jpg"
+import HeroImage from "@/assets/imgs/hero.avif"
 import Placeholder from "@/assets/imgs/placeholder-image.svg";
 
 // Payment Icons
