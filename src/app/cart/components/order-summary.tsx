@@ -104,7 +104,7 @@ export default function OrderSummary() {
 
   return (
     <div>
-      <div className="border rounded-lg p-6">
+      <div className="border rounded-lg p-6 bg-white">
         <h2 className="text-xl font-bold mb-4">Order Summary</h2>
 
         <div className="space-y-4">

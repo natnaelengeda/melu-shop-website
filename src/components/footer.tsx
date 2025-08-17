@@ -5,32 +5,33 @@ import { Input } from "@/components/ui/input"
 import { Checkbox } from "@/components/ui/checkbox"
 
 import { Facebook, Instagram, Send } from "lucide-react"
+import Link from "next/link"
 
 export default function Footer() {
   const data = [
     {
       name: "Melu Clothes Shop",
       items: [
-        { name: "About", link: "" },
-        { name: "Collection", link: "" },
-        { name: "Privacy Policy", link: "" },
-        { name: "Terms & Conditions", link: "" },
+        { name: "About", link: "/about" },
+        { name: "Collection", link: "/products" },
+        { name: "Privacy Policy", link: "/privacy-policy" },
+        { name: "Terms & Services", link: "/terms-and-services" },
       ],
     },
     {
       name: "Help & Support",
       items: [
         { name: "Orders", link: "" },
-        { name: "Returns & Refunds", link: "" },
-        { name: "FAQs", link: "" },
-        { name: "Contact Us", link: "" },
+        { name: "Returns & Refunds", link: "/contact#faq" },
+        { name: "FAQs", link: "/contact#faq" },
+        { name: "Contact Us", link: "/contact" },
       ],
     },
     {
       name: "Join Up",
       items: [
-        { name: "Carrers", link: "" },
-        { name: "Visit Us", link: "" },
+        // { name: "Carrers", link: "" },
+        { name: "Visit Us", link: "/contact#visit-us" },
       ],
     },
   ]
@@ -60,9 +61,23 @@ export default function Footer() {
           {/* Bottom */}
           <div className="flex flex-col items-start justify-start gap-4">
             <div className="flex gap-2">
-              <Instagram />
-              <Facebook />
-              <Send />
+              <Instagram
+                className="cursor-pointer"
+                onClick={() => {
+                  window.open("https://www.instagram.com/melu_cloth_shop_/?hl=en");
+                }} />
+              <Facebook
+                className="cursor-pointer"
+                onClick={() => {
+                  window.open("https://web.facebook.com/profile.php?id=61579761473221");
+                }}
+              />
+              <Send
+                className="cursor-pointer"
+                onClick={() => {
+                  window.open("https://t.me/melu_clothes_shop");
+                }}
+              />
             </div>
             <div>
               <p className="text-xs text-white">
@@ -84,11 +99,12 @@ export default function Footer() {
                 <ul className="flex flex-col items-start justify-start w-full gap-1">
                   {item.items.map((list, index) => {
                     return (
-                      <li
+                      <Link
                         key={index}
+                        href={list.link}
                         className="font-light">
                         {list.name}
-                      </li>
+                      </Link>
                     )
                   })}
                 </ul>

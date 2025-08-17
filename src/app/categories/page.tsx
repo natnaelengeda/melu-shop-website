@@ -13,6 +13,7 @@ import { useGetCategoriesProducts } from '@/api/category'
 import { Product } from '@/types/products';
 
 import AppAsset from '@/core/AppAsset';
+import FlowerSVG from '@/components/flower-svg';
 
 interface Categories {
   id: number;
@@ -28,14 +29,26 @@ export default function Page() {
   return (
     <DefaultLayout>
       <div
-        className="w-full max-w-screen-xl mx-auto py-8 px-4">
+        className="w-full max-w-screen-xl mx-auto py-8 px-4 bg-gradient-to-br from-orange-50 via-amber-25 to-yellow-50">
+        {/* Top Right Flower */}
+        <FlowerSVG
+          className="absolute top-0 right-0 w-80 h-80 opacity-60 animate-pulse"
+          position="top-right"
+        />
+
+        {/* Bottom Left Flower */}
+        <FlowerSVG
+          className="absolute bottom-0 left-0 w-96 h-96 opacity-40 animate-pulse"
+          position="bottom-left"
+        />
+
         <Typography
           variant='h1'
           className="font-cinzel font-light">
           All Categories
         </Typography>
 
-        <div className="space-y-12 pt-5">
+        <div className="space-y-12 pt-5 relative">
           {
             !isPending &&
             data &&
@@ -43,7 +56,7 @@ export default function Page() {
             data.map((category, index: number) => (
               <div
                 key={index}
-                className="border rounded-lg p-6">
+                className="border rounded-lg p-6 bg-white">
                 <div className="flex items-center gap-4 mb-6">
                   <div className="w-16 h-16 relative rounded-lg overflow-hidden">
                     <Image
@@ -91,6 +104,10 @@ export default function Page() {
             })
           }
         </div>
+        {/* Floating animation elements */}
+        <div className="absolute top-1/4 left-1/4 w-4 h-4 bg-orange-300 rounded-full opacity-60 animate-ping" style={{ animationDelay: '3s' } as React.CSSProperties} />
+        <div className="absolute top-3/4 right-1/3 w-3 h-3 bg-amber-400 rounded-full opacity-60 animate-ping" style={{ animationDelay: '4s' } as React.CSSProperties} />
+
       </div>
     </DefaultLayout>
   )

@@ -19,21 +19,22 @@ import useCartStore from "@/store/cart"
 import AppAsset from "@/core/AppAsset"
 // import { LanguageSwitcher } from "./language-switcher"
 import { Button } from "./ui/button"
-import { MenuIcon, ShoppingBag } from "lucide-react"
+import { ListOrdered, MenuIcon, ShoppingBag } from "lucide-react"
 import useUserStore from "@/store/userStore";
 import { List, Package } from "lucide-react";
 
 export default function Header() {
   const headerList = [
     { name: "Categories", page: "/categories", icon: List },
-    { name: "Products", page: "/products", icon: Package }
+    { name: "Products", page: "/products", icon: Package },
+    { name: "Orders", page: "/orders", icon: ListOrdered }
   ];
 
   const { getTotalItems } = useCartStore();
   const { user } = useUserStore();
 
   return (
-    <header className="w-full h-20 bg-[#fcefe3]">
+    <header className="w-full h-20 bg-[#fcefe3] relative z-50 overflow-hidden">
       {/* Main Content */}
       <div
         className="w-full h-full px-5 md:px-10 mx-auto xl:container flex flex-row items-center justify-between">
