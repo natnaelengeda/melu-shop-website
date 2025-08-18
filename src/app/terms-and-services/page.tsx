@@ -40,7 +40,7 @@ export default function Page(): JSX.Element {
 
             {/* Primary Text*/}
             <div className='flex flex-col '>
-              <p className='text-base md:text-lg'>These Terms of Service {`("Terms")`} govern your use of our website located at <a className='underline text-primary' href="https://melu-clothes-shop.vercel.app">https://melu-clothes-shop.vercel.app</a> {`(the "Website")`} and the services offered by Melu Clothes Shop {`(the "Services")`}.
+              <p className='text-base md:text-lg'>These Terms of Service {`("Terms")`} govern your use of our website located at <a className='underline text-primary' href="https://melushop.sale.et">https://melushop.sale.et</a> {`(the "Website")`} and the services offered by Melu Clothes Shop {`(the "Services")`}.
                 By accessing or using the Website or Services, you agree to be bound by these Terms. If you disagree with any part of these Terms, then you may not access or use the Website or Services.</p>
             </div>
 
@@ -163,7 +163,7 @@ export default function Page(): JSX.Element {
                 <div className='flex flex-col gap-2 text-base md:text-lg'>
                   <li className='font-bold'>Changes to the Terms of Service</li>
                   <p>Melu Clothes Shop reserves the right to update these Terms at any time.
-                    We will notify you of any material changes by posting the new Terms on the Website and updating the "Last Updated" date.
+                    We will notify you of any material changes by posting the new Terms on the Website and updating the {`"Last Updated"`} date.
                     Your continued use of the Website or Services after the posting of any revised Terms means that you accept and agree to the changes. We recommend reviewing these Terms periodically.</p>
                 </div>
 

@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 
 export const meta: Metadata = {
-  metadataBase: new URL('https://melu-shop.vercel.app/'),
+  metadataBase: new URL('https://melushop.sale.et/'),
   icons: {
     icon: 'logo.png',
   },
@@ -22,14 +22,14 @@ export const meta: Metadata = {
   authors: [
     {
       name: 'Melu Clothes Shop',
-      url: 'https://melu-shop.vercel.app/'
+      url: 'https://melushop.sale.et/'
     }
   ],
   publisher: 'Melu Clothes Shop',
   openGraph: {
     title: 'Melu Clothes Shop',
     description: "Melu Clothes Shop offers stylish, affordable women's fashion for every occasion. From casual outfits to elegant looks, we bring you the latest trends and timeless pieces to help you look and feel your best.",
-    url: 'https://melu-shop.vercel.app/',
+    url: 'https://melushop.sale.et/',
     siteName: "Melu Clothes Shop",
     images: [
       {

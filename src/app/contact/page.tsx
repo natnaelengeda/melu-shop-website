@@ -61,8 +61,8 @@ export default function ContactPage(): JSX.Element {
             <div className='flex flex-col gap-5'>
               <h1 className='text-3xl md:text-4xl font-bold text-gray-900'>Get in Touch</h1>
               <p className='text-lg md:text-xl text-gray-600 max-w-2xl mx-auto'>
-                We'd love to hear from you! Whether you have questions about our sustainable fashion,
-                need styling advice, or want to share feedback, we're here to help.
+                {`We'd`} love to hear from you! Whether you have questions about our sustainable fashion,
+                need styling advice, or want to share feedback, {`we're`} here to help.
               </p>
 
               {/* Decorative element */}
@@ -249,7 +249,7 @@ export default function ContactPage(): JSX.Element {
                 </div>
                 <div>
                   <h3 className='font-semibold text-gray-900 mb-2'>↩️ Returns & Exchanges</h3>
-                  <p className='text-gray-600'>We don't accept returns, only exchanges if it is in a perfect condition</p>
+                  <p className='text-gray-600'>We {`don't`} accept returns, only exchanges if it is in a perfect condition</p>
                 </div>
                 <div>
                   <h3 className='font-semibold text-gray-900 mb-2'>📏 Size Guide</h3>

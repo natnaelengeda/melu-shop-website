@@ -41,7 +41,7 @@ export default function Page(): JSX.Element {
             {/* Primary Text*/}
             <div className='flex flex-col '>
               <p className='text-base md:text-lg'>Your privacy is important to Melu Clothes Shop. This Privacy Policy explains how we collect, use,
-                and disclose information from and about you when you use our website located at <a className='underline text-black' href="https://melu-clothes-shop.vercel.app">https://melu-clothes-shop.vercel.app</a> {`(the "Website")`}
+                and disclose information from and about you when you use our website located at <a className='underline text-black' href="https://melushop.sale.et/">https://melushop.sale.et</a> {`(the "Website")`}
                 and the services offered by Melu Clothes Shop {`(the "Services")`}.</p>
             </div>
 
@@ -143,7 +143,7 @@ export default function Page(): JSX.Element {
                 {/* Changes to this Privacy Policy */}
                 <div className='flex flex-col gap-2 text-base md:text-lg'>
                   <li className='font-bold'>Changes to this Privacy Policy</li>
-                  <p>We may update this Privacy Policy from time to time to reflect changes in our practices, technology, legal requirements, or other factors. We will notify you of any material changes by posting the new Privacy Policy on the Website and updating the "Last Updated" date. For significant changes, we may also send you an email notification. You are advised to review this Privacy Policy periodically for any changes.</p>
+                  <p>We may update this Privacy Policy from time to time to reflect changes in our practices, technology, legal requirements, or other factors. We will notify you of any material changes by posting the new Privacy Policy on the Website and updating the {`"Last Updated"`} date. For significant changes, we may also send you an email notification. You are advised to review this Privacy Policy periodically for any changes.</p>
                 </div>
 
                 {/* Contact Us */}

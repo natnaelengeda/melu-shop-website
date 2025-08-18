@@ -1,9 +1,14 @@
+"use client";
+
 import React from 'react';
-import { Heart, Leaf, Users, Award } from 'lucide-react';
-import { Typography } from '@/components/ui/typography';
-import DefaultLayout from '@/layouts/default-layout';
 import Link from 'next/link';
 
+// components
+import { Typography } from '@/components/ui/typography';
+import DefaultLayout from '@/layouts/default-layout';
+
+// icons
+import { Heart, Leaf, Users, Award } from 'lucide-react';
 
 export default function AboutPage() {
   return (
@@ -52,7 +57,7 @@ export default function AboutPage() {
                   Founded in 2025 with a vision to revolutionize sustainable fashion,
                   Melu Clothes Shop began as a small dream in a cozy studio. Our founders,
                   passionate about both style and environmental responsibility, wanted to
-                  create clothing that doesn't compromise on quality or ethics.
+                  create clothing that {`doesn't`} compromise on quality or ethics.
                 </p>
               </div>
               <div className="relative">
@@ -91,7 +96,7 @@ export default function AboutPage() {
                   </div>
                   <h3 className="text-xl font-semibold text-gray-900 mb-4">Affordability</h3>
                   <p className="text-gray-600 leading-relaxed">
-                    We're committed to provide affordable clothing to every lady who wants to walk in style
+                    {`We're`} committed to provide affordable clothing to every lady who wants to walk in style
                   </p>
                 </div>
               </div>
@@ -139,8 +144,8 @@ export default function AboutPage() {
               <div className="absolute inset-0 bg-gradient-to-r from-rose-500/10 to-purple-600/10 rounded-3xl" />
               <div className="relative bg-white/60 backdrop-blur-sm rounded-3xl p-12 border border-white/20 shadow-xl">
                 <p className="text-xl leading-relaxed text-gray-800 mb-8">
-                  "To create beautiful, sustainable fashion that empowers women
-                  to express their unique style while making a positive impact on the world."
+                  {`"To`} create beautiful, sustainable fashion that empowers women
+                  to express their unique style while making a positive impact on the {`world."`}
                 </p>
                 <div className="flex flex-wrap justify-center gap-4">
                   <span className="px-4 py-2 bg-gradient-to-r from-rose-100 to-pink-100 rounded-full text-rose-800 font-medium">

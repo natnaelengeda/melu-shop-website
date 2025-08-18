@@ -65,7 +65,7 @@ export default function ErrorPage(): JSX.Element {
               </Typography>
               <p className="text-lg leading-8 text-gray-600 mb-8">
                 It looks like this page decided to go on a little shopping adventure of its own!
-                Don't worry though, we'll help you find your way back to the beautiful world of Melu fashion.
+                {`Don't`} worry though, {`we'll`} help you find your way back to the beautiful world of Melu fashion.
               </p>
 
               {/* Decorative element */}
@@ -133,7 +133,7 @@ export default function ErrorPage(): JSX.Element {
                     router.push("/products");
                   }}
                   className="px-4 py-2 bg-gradient-to-r from-red-100 to-orange-100 rounded-full text-red-800 font-medium text-sm cursor-pointer hover:from-red-200 hover:to-orange-200 transition-all">
-                  Women's Collection
+                  {`Women's`} Collection
                 </button>
                 <button
                   onClick={() => {
