@@ -12,7 +12,10 @@ export default function HomeHeroSection() {
         src={AppAsset.HeroImage}
         alt="Hero Image"
         className="w-full h-full object-cover"
-        unoptimized />
+        unoptimized
+        priority
+        fetchPriority="high"
+      />
 
       <Typography
         variant='h1'
