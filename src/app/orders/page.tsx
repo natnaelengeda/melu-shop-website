@@ -1,77 +1,56 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 // components
 import FlowerSVG from './components/flower-svg';
 import DefaultLayout from '@/layouts/default-layout';
 import OrderCard from './components/order-card';
 import OrderDetail from './components/order-detail';
+import OrderCardSkeleton from './components/order-loading-skeleton';
+
+// api
+import { useGetOrders } from '@/api/orders';
 
 // icons
 import { Package } from 'lucide-react';
-import OrderCardSkeleton from './components/order-loading-skeleton';
 
 
-// Mock data for demonstration
-const mockOrders = [
-  {
-    id: "ORD-001",
-    guestEmail: "john.doe@email.com",
-    guestPhone: "+1234567890",
-    status: "Processing",
-    paymentMethod: "Credit Card",
-    paymentStatus: "Paid",
-    purchaseType: "Online",
-    isDelivery: true,
-    isPickup: false,
-    totalAmount: 149.99,
-    createAt: "2025-08-15T10:30:00Z",
-    items: [
-      { name: "Summer Dress", quantity: 2, price: 59.99 },
-      { name: "Cotton T-Shirt", quantity: 1, price: 29.99 }
-    ]
-  },
-  {
-    id: "ORD-002",
-    guestEmail: "jane.smith@email.com",
-    guestPhone: "+1987654321",
-    status: "Shipped",
-    paymentMethod: "PayPal",
-    paymentStatus: "Paid",
-    purchaseType: "Online",
-    isDelivery: false,
-    isPickup: true,
-    totalAmount: 89.50,
-    createAt: "2025-08-14T15:45:00Z",
-    items: [
-      { name: "Denim Jacket", quantity: 1, price: 89.50 }
-    ]
-  },
-  {
-    id: "ORD-003",
-    guestEmail: "bob.wilson@email.com",
-    guestPhone: "+1122334455",
-    status: "Delivered",
-    paymentMethod: "Cash",
-    paymentStatus: "Paid",
-    purchaseType: "In-Store",
-    isDelivery: true,
-    isPickup: false,
-    totalAmount: 245.00,
-    createAt: "2025-08-13T09:20:00Z",
-    items: [
-      { name: "Winter Coat", quantity: 1, price: 199.99 },
-      { name: "Wool Scarf", quantity: 1, price: 45.01 }
-    ]
-  }
-];
+type OrderItem = {
+  name: string;
+  quantity: number;
+  price: number;
+};
+
+type Order = {
+  id: string;
+  guestEmail: string;
+  guestPhone: string;
+  status: string;
+  paymentMethod: string;
+  paymentStatus: string;
+  purchaseType: string;
+  isDelivery: boolean;
+  isPickup: boolean;
+  totalAmount: number;
+  createAt: string;
+  items: OrderItem[];
+};
+
 
 export default function OrdersPage() {
   const [selectedOrder, setSelectedOrder] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const { data, isPending } = useGetOrders();
 
-  const [orders] = useState(mockOrders);
+  console.log(data);
+
+  const [orders, setOrders] = useState<Order[] | []>([]);
+
+  useEffect(() => {
+    if (data) {
+      setOrders(data);
+    }
+  }, [data]);
 
   const handleOrderClick = (order: any) => {
     setSelectedOrder(order);
@@ -135,11 +114,12 @@ export default function OrdersPage() {
 
                   <div className="grid gap-6">
                     {
-                      isLoading ?
+                      isPending ?
                         Array.from({ length: 3 }).map((_, index) => (
                           <OrderCardSkeleton key={index} />
                         )) :
-                        orders.map((order, index: number) => (
+                        orders &&
+                        orders.map((order: Order, index: number) => (
                           <OrderCard
                             key={index}
                             order={order}

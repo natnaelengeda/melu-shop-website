@@ -17,6 +17,7 @@ import axios from "@/utils/axios";
 import toast from 'react-hot-toast';
 import { error } from 'console';
 import { LoadingSpinner } from '@/components/ui/loading-spinner';
+import useLoginModalStore from '@/store/loginModalStore';
 
 const paymentButtons = [
   {
@@ -45,61 +46,57 @@ const paymentButtons = [
 export default function OrderSummary() {
   const { getTotalPrice, getAllItems } = useCartStore();
   const { user, login } = useUserStore();
+  const { open, setOpen, toggleOpen } = useLoginModalStore();
 
   const [selectedPaymentType, setSelectedpaymentType] = useState('chapa');
   const [isOrderloading, setIsOrderLoading] = useState(false);
 
-  const [phone, setPhone] = useState("");
-  const [email, setEmail] = useState("");
 
   const shipping = 0;
   const total = getTotalPrice();
 
   const addOrder = async () => {
-    if (phone == "") {
-      toast.error("Phone Number is Required");
-    } else {
-      setIsOrderLoading(true);
-      const products: { productId: number, quantity: number }[] = [];
-      const items = getAllItems();
-      items.map((item) => {
-        products.push({ productId: item.id, quantity: item.quantity });
-      })
 
-      axios.post(`/orders`, {
-        products,
-        paymentMethod: selectedPaymentType,
-        purchaseType: "online",
-        deliveryAddressId: 0,
-        isDelivery: false,
-        isPickup: true,
-        guestEmail: email,
-        guestPhone: phone
-      }).then((response) => {
-        const status = response.status;
-        if (status == 201) {
-          const data = response.data;
-          axios.post(`/payments/initiate`, {
-            orderId: data.id,
-            provider: selectedPaymentType
-          }).then((response) => {
-            const status = response.status;
-            if (status == 201) {
-              const paymentLink = response.data.paymentLink;
-              if (paymentLink == "unavailable") {
-                toast.error("Payment Unavailable at the moment");
-              } else {
-                window.open(paymentLink);
-              }
+    setIsOrderLoading(true);
+    const products: { productId: number, quantity: number }[] = [];
+    const items = getAllItems();
+    items.map((item) => {
+      products.push({ productId: item.id, quantity: item.quantity });
+    })
+
+    axios.post(`/orders`, {
+      products,
+      paymentMethod: selectedPaymentType,
+      purchaseType: "online",
+      deliveryAddressId: 0,
+      isDelivery: false,
+      isPickup: true,
+      guestEmail: "",
+      guestPhone: ""
+    }).then((response) => {
+      const status = response.status;
+      if (status == 201) {
+        const data = response.data;
+        axios.post(`/payments/initiate`, {
+          orderId: data.id,
+          provider: selectedPaymentType
+        }).then((response) => {
+          const status = response.status;
+          if (status == 201) {
+            const paymentLink = response.data.paymentLink;
+            if (paymentLink == "unavailable") {
+              toast.error("Payment Unavailable at the moment");
+            } else {
+              window.open(paymentLink);
             }
-          }).catch(() => {
-            toast.error("Unable to send Payment Link");
-          }).finally(() => {
-            setIsOrderLoading(false);
-          })
-        }
-      })
-    }
+          }
+        }).catch(() => {
+          toast.error("Unable to send Payment Link");
+        }).finally(() => {
+          setIsOrderLoading(false);
+        })
+      }
+    })
   }
 
   return (
@@ -123,36 +120,6 @@ export default function OrderSummary() {
         </div>
 
         <div className="mt-6 space-y-4">
-          <div>
-            <label htmlFor="email" className="block text-sm font-medium mb-1">
-              Email
-            </label>
-            <div className="flex">
-              <Input
-                id="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Enter Email"
-                className="rounded-r-none"
-              />
-            </div>
-          </div>
-
-          <div>
-            <label htmlFor="phoneNumber" className="block text-sm font-medium mb-1">
-              Phone Number
-            </label>
-            <div className="flex">
-              <Input
-                id="email"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                placeholder="Enter Phone Number"
-                className="rounded-r-none"
-              />
-            </div>
-          </div>
-
           <div className="flex flex-col items-start justify-start gap-2">
             <label
               htmlFor="payment-method"
@@ -175,88 +142,11 @@ export default function OrderSummary() {
               ))}
             </div>
           </div>
-          {
-            process.env.NODE_ENV == "development" ?
-              !user.isLoggedIn &&
-              <button
-                className='px-3 py-2 bg-blue-500 text-white my-3 rounded'
-                onClick={() => {
-                  const data = {
-                    first_name: "Natnael",
-                    hash: "123123",
-                    id: 1234312,
-                    photo_url: "https://avatars.githubusercontent.com/u/43242583?v=4",
-                    username: "natnaelengeda"
-                  }
-
-                  axios.post(`/auth/telegram-login`, {
-                    first_name: data.first_name,
-                    hash: data.hash,
-                    id: data.id,
-                    photo_url: data.photo_url,
-                    username: data.username
-                  }).then((response) => {
-                    const status = response.status;
-                    if (status == 200) {
-                      const id = response.data.id;
-                      localStorage.setItem("id", id);
-                      login({
-                        id: data.id,
-                        name: data.first_name,
-                        role: "user",
-                        photo_url: data.photo_url ?? "",
-                        isLoggedIn: true,
-                      });
-                      toast.success("Login Success")
-                    }
-                  }).catch(() => {
-                    toast.error("Unable to login, try again later")
-                  })
-
-                }}
-              >
-                Login With Telegram
-              </button> :
-              <>
-                {!user.isLoggedIn &&
-                  <LoginButton
-                    botUsername={"melu_clothes_shop_bot"}
-                    onAuthCallback={(data) => {
-                      axios.post(`/auth/telegram-login`, {
-                        first_name: data.first_name,
-                        hash: data.hash,
-                        id: data.id,
-                        photo_url: data.photo_url,
-                        username: data.username
-                      }).then((response) => {
-                        const status = response.status;
-                        if (status == 200) {
-                          login({
-                            id: data.id,
-                            name: data.first_name,
-                            role: "user",
-                            photo_url: data.photo_url ?? "",
-                            isLoggedIn: true,
-                          });
-                          toast.success("Login Success")
-                        }
-                      }).catch(() => {
-                        toast.error("Unable to login, try again later")
-                      })
-                    }}
-                    buttonSize="large" // "large" | "medium" | "small"
-                    cornerRadius={20} // 0 - 20
-                    showAvatar={true} // true | false
-                    lang="en"
-                  />}
-              </>
-          }
-
-
           <Button
             onClick={() => {
               if (user.isLoggedIn == false) {
-                toast("Login with Telegram First");
+                toast("Login To Checkout")
+                setOpen(true);
               } else {
                 addOrder();
               }
@@ -267,7 +157,6 @@ export default function OrderSummary() {
               isOrderloading &&
               <LoadingSpinner size={20} />
             }
-
             Proceed to Checkout
           </Button>
         </div>

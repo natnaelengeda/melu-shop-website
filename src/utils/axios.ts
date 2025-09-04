@@ -3,7 +3,7 @@ import axios from "axios";
 
 const instance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_SERVER_URL,
-  timeout: 30000,
+  timeout: 15000,
   withCredentials: true,
   headers: {
     'Content-Type': 'application/json',

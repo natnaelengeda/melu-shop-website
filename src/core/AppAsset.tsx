@@ -8,6 +8,12 @@ import ArifPayButtonLogo from "@/assets/logo/arif-pay-logo.jpg";
 import SantimPayButtonLogo from "@/assets/logo/santim.png";
 import StripePayButtonLogo from "@/assets/logo/stripe-button-logo.png";
 
+// Icons
+import EmailIcon from "@/assets/icons/mail.png";
+import PhoneIcon from "@/assets/icons/phone-call.png";
+import GoogleIcon from "@/assets/icons/search.png";
+
+
 class AppAsset {
   private constructor() { }
 
@@ -20,6 +26,11 @@ class AppAsset {
   static ArifPayButtonLogo = ArifPayButtonLogo;
   static SantimPayButtonLogo = SantimPayButtonLogo;
   static StripePayButtonLogo = StripePayButtonLogo;
+
+  // Icons
+  static EmailIcon = EmailIcon;
+  static PhoneIcon = PhoneIcon;
+  static GoogleIcon = GoogleIcon;
 }
 
 export default AppAsset

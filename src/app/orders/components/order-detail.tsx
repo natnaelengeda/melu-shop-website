@@ -7,6 +7,7 @@ import { getPaymentStatusColor } from '@/utils/getPaymentStatusColor';
 
 // icons
 import { Package, Mail, Phone, CreditCard, Truck, Store, ArrowLeft } from 'lucide-react';
+import OrderItems from './order-items';
 
 export default function OrderDetail({ order, onBack }: any) {
   return (
@@ -73,7 +74,8 @@ export default function OrderDetail({ order, onBack }: any) {
           <h3 className="text-lg font-bold text-gray-800 mb-4">Payment Information</h3>
           <div className="space-y-3">
             <div className="flex items-center gap-3">
-              <CreditCard className="w-5 h-5 text-gray-400" />
+              <CreditCard
+                className="w-5 h-5 text-gray-400" />
               <span className="text-gray-700">{order.paymentMethod}</span>
             </div>
             <div className="flex justify-between items-center">
@@ -82,30 +84,12 @@ export default function OrderDetail({ order, onBack }: any) {
             </div>
             <div className="flex justify-between items-center pt-2 border-t border-gray-200">
               <span className="text-lg font-bold text-gray-800">Total Amount:</span>
-              <span className="text-xl font-bold text-orange-600">${order.totalAmount.toFixed(2)}</span>
+              <span className="text-xl font-bold text-orange-600">${parseInt(order.totalAmount).toFixed(2)}</span>
             </div>
           </div>
         </div>
       </div>
-
-      {order.items && (
-        <div className="mt-8">
-          <h3 className="text-lg font-bold text-gray-800 mb-4">Order Items</h3>
-          <div className="bg-gray-50 rounded-lg p-4">
-            {order.items.map((item: any, index: number) => (
-              <div
-                key={index}
-                className="flex justify-between items-center py-2 border-b border-gray-200 last:border-b-0">
-                <div>
-                  <span className="font-medium">{item.name}</span>
-                  <span className="text-gray-500 ml-2">x{item.quantity}</span>
-                </div>
-                <span className="font-medium">${(item.price * item.quantity).toFixed(2)}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
+      <OrderItems order={order} />
     </div>
   )
 }

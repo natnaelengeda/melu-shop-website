@@ -20,7 +20,7 @@ export default function OrderCard({ order, onClick }: any) {
             <h3 className="font-bold text-lg text-gray-800">{order.id}</h3>
             <p className="text-sm text-gray-500">
               <Calendar className="w-4 h-4 inline mr-1" />
-              {formatDate(order.createAt)}
+              {formatDate(order.createdAt)}
             </p>
           </div>
         </div>
@@ -65,7 +65,7 @@ export default function OrderCard({ order, onClick }: any) {
           {order.paymentMethod}
         </div>
         <div className="font-bold text-lg text-orange-600">
-          {order.totalAmount.toFixed(2)} ETB
+          {parseInt(order.totalAmount).toFixed(2)} ETB
         </div>
       </div>
     </div>

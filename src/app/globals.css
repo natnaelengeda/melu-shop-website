@@ -151,3 +151,10 @@
 * {
   /* border: 1px solid black; */
 }
+
+input::selection {
+  background: #fcefe3;
+  /* Tailwind's sky-500 */
+  color: black;
+  /* text color when selected */
+}

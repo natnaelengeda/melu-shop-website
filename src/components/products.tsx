@@ -14,7 +14,7 @@ import { ArrowRight } from 'lucide-react';
 
 
 export default function Products() {
-  const { data, isPending }: { data: Product[] | undefined, isPending: boolean } = useProducts();
+  const { data, isPending, isError }: { data: Product[] | undefined, isPending: boolean, isError: any } = useProducts();
   const router = useRouter();
 
   return (
@@ -41,7 +41,19 @@ export default function Products() {
               image={product.images}
             />
           ))}
-
+        {
+          !isPending &&
+          (data &&
+            data.length === 0)
+          || isError &&
+          <div
+            className='w-full col-span-3 flex items-center justify-center py-4'>
+            <Typography
+              variant='h3'>
+              Products will appear here once available.
+            </Typography>
+          </div>
+        }
         {
           isPending &&
           Array.from({ length: 3 }).map((_, idx) => (

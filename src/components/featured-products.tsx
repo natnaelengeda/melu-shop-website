@@ -13,7 +13,7 @@ import { Product } from '@/types/products';
 
 export default function Featuredproducts() {
 
-  const { data, isPending }: { data: Product[] | undefined, isPending: boolean } = useFeaturedproducts();
+  const { data, isPending, isError }: { data: Product[] | undefined, isPending: boolean, isError: any } = useFeaturedproducts();
 
   return (
     <div
@@ -39,6 +39,19 @@ export default function Featuredproducts() {
               image={product.images}
             />
           ))}
+        {
+          !isPending &&
+          (data &&
+            data.length === 0)
+          || isError &&
+          <div
+            className='w-full col-span-3 flex items-center justify-center py-4'>
+            <Typography
+              variant='h3'>
+              Featured products will appear here once available.
+            </Typography>
+          </div>
+        }
         {
           isPending &&
           Array.from({ length: 3 }).map((_, idx) => (

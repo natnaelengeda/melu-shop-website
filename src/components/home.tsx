@@ -10,7 +10,8 @@ import FlowerSVG from './flower-svg'
 export default function HomeComponent() {
 
   return (
-    <div className="w-full h-full flex flex-col items-center justify-center pt-0 pb-10 bg-gradient-to-br from-orange-50 via-amber-25 to-yellow-50">
+    <div
+      className="w-full h-full flex flex-col items-center justify-center pt-0 pb-10 bg-gradient-to-br from-orange-50 via-amber-25 to-yellow-50">
       <HomeHeroSection />
       <div className='w-full h-full flex flex-col items-center justify-center relative'>
         {/* Top Right Flower */}

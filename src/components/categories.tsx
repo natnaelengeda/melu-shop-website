@@ -15,7 +15,7 @@ import { Category } from '@/types/products';
 
 export default function Categories() {
   const router = useRouter();
-  const { data, isPending }: { data: Category[] | undefined, isPending: boolean } = useGetCategories();
+  const { data, isPending, isError }: { data: Category[] | undefined, isPending: boolean, isError: any } = useGetCategories();
 
 
   return (
@@ -56,7 +56,19 @@ export default function Categories() {
               </div>
             </div>
           ))}
-
+        {
+          !isPending &&
+          (data &&
+            data.length === 0)
+          || isError &&
+          <div
+            className='w-full col-span-3 flex items-center justify-center py-4'>
+            <Typography
+              variant='h3'>
+              Categories will appear here once available.
+            </Typography>
+          </div>
+        }
         {
           isPending &&
           <div className='w-full grid grid-cols-3 gap-10'>
