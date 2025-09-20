@@ -35,6 +35,13 @@ const paymentButtons = [
     buttonClass: 'text-black p-0 px-2',
   },
   {
+    src: AppAsset.ArifPayButtonLogo,
+    type: 'arif-pay',
+    alt: 'Arif Pay Button Logo',
+    className: 'w-15 h-10 object-contain',
+    buttonClass: 'text-black p-0 px-2',
+  },
+  {
     src: AppAsset.StripePayButtonLogo,
     type: 'stripe',
     alt: 'Stripe Button Logo',
